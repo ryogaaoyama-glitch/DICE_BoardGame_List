@@ -264,7 +264,6 @@
 </head>
 <body>
 
-<div id="jsonp-container" style="display:none"></div>
 <div id="login-screen" class="login-screen">
   <div class="login-box">
     <div class="login-logo">♟</div>
@@ -408,39 +407,18 @@
   // デプロイ後のURLに変更してください
   const GAS_URL = 'https://script.google.com/macros/s/AKfycbxthxssVkUWIkWVaurUtAzI7MukRESiYPKaErDC4sEIYW-nnKfIBK-_IvbgSMOYAP_s/exec';
 
-  // GETはJSONPでCORSを回避
-  function gasGet(action, params = {}) {
-    return new Promise((resolve, reject) => {
-      const cbName = 'gasCallback_' + Date.now() + '_' + Math.floor(Math.random() * 100000);
-      const url = new URL(GAS_URL);
-      url.searchParams.set('action', action);
-      url.searchParams.set('callback', cbName);
-      Object.entries(params).forEach(([k, v]) => url.searchParams.set(k, v));
-
-      const timer = setTimeout(() => {
-        cleanup();
-        reject(new Error('JSONP timeout'));
-      }, 30000);
-
-      function cleanup() {
-        delete window[cbName];
-        clearTimeout(timer);
-        const el = document.getElementById(cbName);
-        if (el) el.parentNode.removeChild(el);
-      }
-
-      window[cbName] = (data) => { cleanup(); resolve(data); };
-
-      const script = document.createElement('script');
-      script.id  = cbName;
-      script.src = url.toString();
-      script.onerror = () => { cleanup(); reject(new Error('JSONP failed')); };
-      document.body.appendChild(script);
+  async function gasGet(action, params = {}) {
+    const url = new URL(GAS_URL);
+    url.searchParams.set('action', action);
+    Object.entries(params).forEach(([k, v]) => url.searchParams.set(k, v));
+    const res = await fetch(url.toString(), {
+      redirect: 'follow',
+      mode: 'cors',
     });
+    return res.json();
   }
 
-  // POSTもGETに変換してJSONPで処理
-  function gasPost(action, data = {}) {
+  async function gasPost(action, data = {}) {
     return gasGet(action, data);
   }
 
