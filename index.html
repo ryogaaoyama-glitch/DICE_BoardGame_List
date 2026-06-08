@@ -36,7 +36,6 @@
       radial-gradient(ellipse at 85% 100%, rgba(90,74,53,0.15)   0%, transparent 50%);
   }
 
-  /* ===== ログイン画面 ===== */
   .login-screen {
     min-height: 100vh;
     display: flex;
@@ -58,59 +57,39 @@
     align-items: center;
     gap: 16px;
   }
-  .login-logo {
-    font-size: 3.5rem;
-    line-height: 1;
-    filter: drop-shadow(0 0 12px rgba(212,135,58,0.4));
+  .login-logo { font-size: 3.5rem; line-height: 1; filter: drop-shadow(0 0 12px rgba(212,135,58,0.4)); }
+  .login-title { font-family: 'Zen Maru Gothic', sans-serif; font-size: 1.4rem; font-weight: 700; color: var(--accent2); letter-spacing: 0.05em; }
+  .login-desc { font-size: 0.88rem; color: var(--sub); line-height: 1.7; }
+  .login-form { display: flex; flex-direction: column; gap: 10px; width: 100%; }
+  .login-form input {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.95rem;
+    padding: 10px 13px;
+    outline: none;
+    transition: border-color 0.18s;
   }
-  .login-title {
-    font-family: 'Zen Maru Gothic', sans-serif;
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: var(--accent2);
-    letter-spacing: 0.05em;
-  }
-  .login-desc {
-    font-size: 0.88rem;
-    color: var(--sub);
-    line-height: 1.7;
-  }
-  .btn-google-login {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background: #fff;
-    color: #333;
+  .login-form input:focus { border-color: var(--accent); }
+  .btn-login {
+    background: linear-gradient(135deg, var(--accent), #b86e25);
+    color: #fff;
     border: none;
     border-radius: 8px;
     font-family: 'Noto Sans JP', sans-serif;
-    font-size: 0.92rem;
+    font-size: 0.95rem;
     font-weight: 700;
-    padding: 11px 22px;
+    padding: 11px;
     cursor: pointer;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.3);
-    transition: box-shadow 0.18s, transform 0.1s;
-    margin-top: 8px;
+    transition: opacity 0.15s, transform 0.1s;
   }
-  .btn-google-login:hover  { box-shadow: 0 4px 20px rgba(0,0,0,0.4); transform: translateY(-1px); }
-  .btn-google-login:active { transform: scale(0.98); }
-  .google-icon {
-    width: 22px;
-    height: 22px;
-    background: linear-gradient(135deg, #4285f4 25%, #ea4335 25% 50%, #fbbc04 50% 75%, #34a853 75%);
-    border-radius: 50%;
-    color: #fff;
-    font-size: 0.75rem;
-    font-weight: 900;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
+  .btn-login:hover { opacity: 0.9; transform: translateY(-1px); }
   .login-note       { font-size: 0.82rem; color: var(--sub); min-height: 1.2em; }
   .login-note.error { color: #e08880; }
 
-  /* ===== ヘッダー ===== */
   .header {
     background: var(--surface);
     border-bottom: 2px solid var(--border);
@@ -129,794 +108,168 @@
     justify-content: space-between;
     gap: 12px;
   }
-  .logo {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-family: 'Zen Maru Gothic', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--accent2);
-    letter-spacing: 0.04em;
-    flex-shrink: 0;
-  }
+  .logo { display: flex; align-items: center; gap: 8px; font-family: 'Zen Maru Gothic', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--accent2); letter-spacing: 0.04em; flex-shrink: 0; }
   .logo-icon { font-size: 1.4rem; }
-
-  .header-right {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    min-width: 0;
-  }
-
-  .stats {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 0.78rem;
-    flex-shrink: 0;
-  }
+  .header-right { display: flex; align-items: center; gap: 10px; min-width: 0; }
+  .stats { display: flex; align-items: center; gap: 5px; font-size: 0.78rem; flex-shrink: 0; }
   .stat-item             { padding: 3px 9px; border-radius: 20px; font-weight: 700; }
   .stat-item.avail       { background: rgba(90,158,106,0.18); color: #7ecf8e; }
   .stat-item.lend        { background: rgba(212,135,58,0.18); color: var(--accent2); }
   .stat-item.played-stat { background: rgba(200,168,75,0.18); color: var(--gold2); }
   .stat-sep              { color: var(--border); }
-
-  /* ユーザーチップ */
-  .user-chip {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    background: var(--surface2);
-    border: 1px solid rgba(200,168,75,0.35);
-    border-radius: 20px;
-    padding: 4px 6px 4px 4px;
-    min-width: 0;
-    max-width: 200px;
-  }
-  .user-avatar {
-    width: 26px;
-    height: 26px;
-    background: linear-gradient(135deg, var(--accent), var(--gold));
-    border-radius: 50%;
-    color: #fff;
-    font-size: 0.78rem;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-  .user-email {
-    font-size: 0.75rem;
-    color: var(--gold2);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    flex: 1;
-    min-width: 0;
-  }
-  .btn-logout {
-    background: none;
-    border: none;
-    color: var(--sub);
-    font-size: 0.7rem;
-    cursor: pointer;
-    padding: 2px 4px;
-    border-radius: 4px;
-    flex-shrink: 0;
-    line-height: 1;
-    transition: color 0.15s;
-  }
+  .user-chip { display: flex; align-items: center; gap: 6px; background: var(--surface2); border: 1px solid rgba(200,168,75,0.35); border-radius: 20px; padding: 4px 6px 4px 4px; min-width: 0; max-width: 200px; }
+  .user-avatar { width: 26px; height: 26px; background: linear-gradient(135deg, var(--accent), var(--gold)); border-radius: 50%; color: #fff; font-size: 0.78rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .user-email { font-size: 0.75rem; color: var(--gold2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; min-width: 0; }
+  .btn-logout { background: none; border: none; color: var(--sub); font-size: 0.7rem; cursor: pointer; padding: 2px 4px; border-radius: 4px; flex-shrink: 0; line-height: 1; transition: color 0.15s; }
   .btn-logout:hover { color: #e08880; }
 
-  /* ===== タブ ===== */
-  .tab-nav {
-    background: var(--surface2);
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    overflow-x: auto;
-    scrollbar-width: none;
-  }
+  .tab-nav { background: var(--surface2); border-bottom: 1px solid var(--border); display: flex; overflow-x: auto; scrollbar-width: none; }
   .tab-nav::-webkit-scrollbar { display: none; }
-  .tab-btn {
-    flex-shrink: 0;
-    background: none;
-    border: none;
-    color: var(--sub);
-    font-family: 'Noto Sans JP', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 500;
-    padding: 11px 16px;
-    cursor: pointer;
-    border-bottom: 3px solid transparent;
-    white-space: nowrap;
-    transition: all 0.18s;
-  }
+  .tab-btn { flex-shrink: 0; background: none; border: none; color: var(--sub); font-family: 'Noto Sans JP', sans-serif; font-size: 0.85rem; font-weight: 500; padding: 11px 16px; cursor: pointer; border-bottom: 3px solid transparent; white-space: nowrap; transition: all 0.18s; }
   .tab-btn:hover  { color: var(--text); background: rgba(255,255,255,0.04); }
   .tab-btn.active { color: var(--accent2); border-bottom-color: var(--accent); }
-  .tab-btn[data-tab="played"].active  { color: var(--gold2);  border-bottom-color: var(--gold); }
+  .tab-btn[data-tab="played"].active   { color: var(--gold2);  border-bottom-color: var(--gold); }
   .tab-btn[data-tab="unplayed"].active { color: #9ecfbe; border-bottom-color: #5aae8e; }
 
-  /* ===== フィルタバー ===== */
-  .filter-bar {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 12px 16px;
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-  .filter-bar input,
-  .filter-bar select {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    color: var(--text);
-    font-family: 'Noto Sans JP', sans-serif;
-    font-size: 0.88rem;
-    padding: 7px 12px;
-    outline: none;
-    transition: border-color 0.18s;
-  }
-  .filter-bar input          { flex: 1; min-width: 160px; }
-  .filter-bar select         { flex-shrink: 0; }
-  .filter-bar input:focus,
-  .filter-bar select:focus   { border-color: var(--accent); }
+  .filter-bar { max-width: 1100px; margin: 0 auto; padding: 12px 16px; display: flex; align-items: center; gap: 8px; }
+  .filter-bar input { flex: 1; min-width: 160px; background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text); font-family: 'Noto Sans JP', sans-serif; font-size: 0.88rem; padding: 7px 12px; outline: none; transition: border-color 0.18s; }
+  .filter-bar input:focus { border-color: var(--accent); }
   .filter-bar input::placeholder { color: var(--sub); }
-  .filter-bar select option  { background: var(--surface2); }
+  .btn-filter-toggle { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius); color: var(--sub); font-family: 'Noto Sans JP', sans-serif; font-size: 0.85rem; padding: 7px 14px; cursor: pointer; white-space: nowrap; flex-shrink: 0; display: flex; align-items: center; gap: 6px; transition: all 0.15s; }
+  .btn-filter-toggle:hover { border-color: var(--accent); color: var(--accent2); }
+  .btn-filter-toggle.has-filter { border-color: var(--accent); color: var(--accent2); background: rgba(212,135,58,0.1); }
+  .filter-active-badge { background: var(--accent); color: #fff; font-size: 0.65rem; font-weight: 700; min-width: 16px; height: 16px; border-radius: 20px; padding: 0 4px; display: inline-flex; align-items: center; justify-content: center; }
 
-  /* ===== メイン ===== */
-  .main-content {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 16px 32px;
-  }
+  .filter-panel { max-width: 1100px; margin: 0 auto; padding: 0 16px; animation: slideDown 0.2s ease; }
+  @keyframes slideDown { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+  .filter-panel-inner { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; display: flex; flex-direction: column; gap: 12px; margin-bottom: 8px; }
+  .filter-row { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
+  .filter-row-btns { display: flex; flex-wrap: wrap; gap: 5px; }
+  .filter-row-reset { justify-content: flex-end; padding-top: 4px; border-top: 1px solid var(--surface3); }
+  .filter-panel select { background: var(--surface3); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-family: 'Noto Sans JP', sans-serif; font-size: 0.85rem; padding: 5px 10px; outline: none; transition: border-color 0.15s; }
+  .filter-panel select:focus { border-color: var(--accent); }
+  .filter-panel select option { background: var(--surface2); }
+  .btn-filter-reset-all { background: none; border: 1px solid var(--border); border-radius: 20px; color: var(--sub); font-family: 'Noto Sans JP', sans-serif; font-size: 0.78rem; padding: 4px 12px; cursor: pointer; transition: all 0.15s; }
+  .btn-filter-reset-all:hover { border-color: var(--red); color: #e08880; }
+  #tagFilterBar { width: 100%; }
 
-  /* ===== ゲームカード ===== */
-  .games-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-    gap: 12px;
-  }
-  .game-card {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 13px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.15s, box-shadow 0.15s;
-  }
-  .game-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--accent), var(--accent2));
-    transition: background 0.3s;
-  }
-  .game-card.borrowed::before      { background: var(--border); }
+  .sort-bar { max-width: 1100px; margin: 0 auto; padding: 0 16px 12px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .sort-label { font-size: 0.78rem; color: var(--sub); flex-shrink: 0; }
+  .sort-btn { background: var(--surface2); border: 1px solid var(--border); border-radius: 20px; color: var(--sub); font-family: 'Noto Sans JP', sans-serif; font-size: 0.78rem; padding: 4px 12px; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
+  .sort-btn:hover  { border-color: var(--accent); color: var(--accent2); }
+  .sort-btn.active { background: rgba(212,135,58,0.18); border-color: var(--accent); color: var(--accent2); font-weight: 700; }
+  .sort-order-btn { background: var(--surface2); border: 1px solid var(--border); border-radius: 20px; color: var(--sub); font-family: 'Noto Sans JP', sans-serif; font-size: 0.78rem; padding: 4px 10px; cursor: pointer; display: flex; align-items: center; transition: all 0.15s; flex-shrink: 0; white-space: nowrap; }
+  .sort-order-btn:hover { border-color: var(--accent); color: var(--accent2); }
+
+  .main-content { max-width: 1100px; margin: 0 auto; padding: 0 16px 32px; }
+  .games-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 12px; }
+  .game-card { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius); padding: 13px; display: flex; flex-direction: column; gap: 8px; position: relative; overflow: hidden; transition: transform 0.15s, box-shadow 0.15s; }
+  .game-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent2)); transition: background 0.3s; }
+  .game-card.borrowed::before       { background: var(--border); }
   .game-card.is-played-card::before { background: linear-gradient(90deg, var(--gold), var(--gold2)); }
   .game-card:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(0,0,0,0.45); }
   .game-card.is-played-card { border-color: rgba(200,168,75,0.3); }
 
-  .card-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 4px;
-  }
-  .card-top-right {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 3px;
-  }
-  .shelf-badge {
-    font-size: 0.68rem;
-    font-weight: 700;
-    color: var(--sub);
-    background: var(--surface3);
-    padding: 2px 7px;
-    border-radius: 20px;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-  .status-badge {
-    font-size: 0.67rem;
-    font-weight: 700;
-    padding: 2px 7px;
-    border-radius: 20px;
-    white-space: nowrap;
-  }
+  .card-img { margin: -13px -13px 0; border-radius: var(--radius) var(--radius) 0 0; overflow: hidden; height: 140px; background: var(--surface3); }
+  .card-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s ease; }
+  .game-card:hover .card-img img { transform: scale(1.04); }
+
+  .card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 4px; }
+  .card-top-right { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; }
+  .shelf-badge { font-size: 0.68rem; font-weight: 700; color: var(--sub); background: var(--surface3); padding: 2px 7px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; }
+  .status-badge { font-size: 0.67rem; font-weight: 700; padding: 2px 7px; border-radius: 20px; white-space: nowrap; }
   .status-badge.avail { background: rgba(90,158,106,0.2);  color: #7ecf8e; border: 1px solid rgba(90,158,106,0.35); }
   .status-badge.lend  { background: rgba(192,84,74,0.2);   color: #e08880; border: 1px solid rgba(192,84,74,0.35); }
-  .played-badge {
-    font-size: 0.67rem;
-    font-weight: 700;
-    padding: 2px 7px;
-    border-radius: 20px;
-    background: rgba(200,168,75,0.2);
-    color: var(--gold2);
-    border: 1px solid rgba(200,168,75,0.4);
-    white-space: nowrap;
-  }
-
-  .game-name {
-    font-family: 'Zen Maru Gothic', sans-serif;
-    font-size: 0.95rem;
-    font-weight: 700;
-    line-height: 1.4;
-    color: var(--text);
-  }
+  .played-badge { font-size: 0.67rem; font-weight: 700; padding: 2px 7px; border-radius: 20px; background: rgba(200,168,75,0.2); color: var(--gold2); border: 1px solid rgba(200,168,75,0.4); white-space: nowrap; }
+  .game-name { font-family: 'Zen Maru Gothic', sans-serif; font-size: 0.95rem; font-weight: 700; line-height: 1.4; color: var(--text); }
   .game-tags { display: flex; flex-wrap: wrap; gap: 4px; }
-  .tag {
-    font-size: 0.67rem;
-    padding: 2px 7px;
-    border-radius: 20px;
-    background: var(--surface3);
-    color: var(--sub);
-    border: 1px solid var(--border);
-    white-space: nowrap;
-  }
-  .tag-weight-light  { background: rgba(90,158,106,0.12); color: #8ecf9e; border-color: rgba(90,158,106,0.3); }
-  .tag-weight-mid    { background: rgba(212,135,58,0.12); color: var(--accent2); border-color: rgba(212,135,58,0.3); }
-  .tag-weight-heavy  { background: rgba(192,84,74,0.12);  color: #e08880; border-color: rgba(192,84,74,0.3); }
+  .tag { font-size: 0.67rem; padding: 2px 7px; border-radius: 20px; background: var(--surface3); color: var(--sub); border: 1px solid var(--border); white-space: nowrap; }
+  .tag-weight-light { background: rgba(90,158,106,0.12); color: #8ecf9e; border-color: rgba(90,158,106,0.3); }
+  .tag-weight-mid   { background: rgba(212,135,58,0.12); color: var(--accent2); border-color: rgba(212,135,58,0.3); }
+  .tag-weight-heavy { background: rgba(192,84,74,0.12);  color: #e08880; border-color: rgba(192,84,74,0.3); }
+  .game-note { font-size: 0.7rem; color: var(--sub); background: var(--surface3); border-radius: 5px; padding: 4px 8px; line-height: 1.4; }
+  .game-card-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+  .game-tag { font-size: 0.65rem; padding: 1px 6px; border-radius: 20px; background: rgba(200,168,75,0.12); color: var(--gold2); border: 1px solid rgba(200,168,75,0.3); white-space: nowrap; }
 
-  .game-note {
-    font-size: 0.7rem;
-    color: var(--sub);
-    background: var(--surface3);
-    border-radius: 5px;
-    padding: 4px 8px;
-    line-height: 1.4;
-  }
-  .card-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 6px;
-    margin-top: auto;
-    padding-top: 8px;
-    border-top: 1px solid var(--surface3);
-  }
-  .card-footer-right {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    min-width: 0;
-  }
-  .borrower-info {
-    font-size: 0.75rem;
-    color: var(--sub);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    max-width: 80px;
-  }
-
-  /* プレイ済みボタン */
-  .btn-played {
-    background: none;
-    border: 1px solid var(--border);
-    border-radius: 7px;
-    color: var(--sub);
-    font-size: 1rem;
-    width: 34px;
-    height: 30px;
-    cursor: pointer;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.18s;
-    line-height: 1;
-  }
-  .btn-played:hover      { border-color: var(--gold); color: var(--gold2); background: rgba(200,168,75,0.1); }
-  .btn-played.is-played  { background: rgba(200,168,75,0.18); border-color: rgba(200,168,75,0.5); color: var(--gold2); }
+  .card-footer { display: flex; align-items: center; justify-content: space-between; gap: 6px; margin-top: auto; padding-top: 8px; border-top: 1px solid var(--surface3); }
+  .card-footer-right { display: flex; align-items: center; gap: 6px; min-width: 0; }
+  .borrower-info { font-size: 0.75rem; color: var(--sub); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 80px; }
+  .btn-played { background: none; border: 1px solid var(--border); border-radius: 7px; color: var(--sub); font-size: 1rem; width: 34px; height: 30px; cursor: pointer; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.18s; line-height: 1; }
+  .btn-played:hover     { border-color: var(--gold); color: var(--gold2); background: rgba(200,168,75,0.1); }
+  .btn-played.is-played { background: rgba(200,168,75,0.18); border-color: rgba(200,168,75,0.5); color: var(--gold2); }
   .btn-played.is-played:hover { background: rgba(192,84,74,0.15); border-color: rgba(192,84,74,0.4); color: #e08880; }
 
-  /* ===== アクションボタン ===== */
-  .btn-primary {
-    background: linear-gradient(135deg, var(--accent), #b86e25);
-    color: #fff;
-    border: none;
-    border-radius: 7px;
-    font-family: 'Noto Sans JP', sans-serif;
-    font-size: 0.88rem;
-    font-weight: 700;
-    padding: 8px 20px;
-    cursor: pointer;
-    box-shadow: 0 2px 8px rgba(212,135,58,0.3);
-    transition: opacity 0.15s, transform 0.1s;
-  }
+  .player-btn { background: var(--surface2); border: 1px solid var(--border); border-radius: 20px; color: var(--sub); font-family: 'Noto Sans JP', sans-serif; font-size: 0.78rem; font-weight: 700; min-width: 32px; padding: 4px 10px; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
+  .player-btn:hover  { border-color: var(--accent); color: var(--accent2); }
+  .player-btn.active { background: rgba(212,135,58,0.18); border-color: var(--accent); color: var(--accent2); }
+
+  .tag-filter-chips { display: flex; flex-wrap: wrap; gap: 5px; flex: 1; }
+  .tag-chip { background: var(--surface2); border: 1px solid var(--border); border-radius: 20px; color: var(--sub); font-family: 'Noto Sans JP', sans-serif; font-size: 0.75rem; padding: 3px 10px; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
+  .tag-chip:hover       { border-color: var(--accent); color: var(--accent2); }
+  .tag-chip.tag-include { background: rgba(90,158,106,0.18); border-color: rgba(90,158,106,0.5); color: #7ecf8e; font-weight: 700; }
+  .tag-chip.tag-exclude { background: rgba(192,84,74,0.18);  border-color: rgba(192,84,74,0.5);  color: #e08880; font-weight: 700; }
+  .tag-filter-reset { background: none; border: 1px solid var(--border); border-radius: 20px; color: var(--sub); font-family: 'Noto Sans JP', sans-serif; font-size: 0.73rem; padding: 3px 10px; cursor: pointer; flex-shrink: 0; transition: all 0.15s; }
+  .tag-filter-reset:hover { border-color: var(--red); color: #e08880; }
+
+  .btn-primary { background: linear-gradient(135deg, var(--accent), #b86e25); color: #fff; border: none; border-radius: 7px; font-family: 'Noto Sans JP', sans-serif; font-size: 0.88rem; font-weight: 700; padding: 8px 20px; cursor: pointer; box-shadow: 0 2px 8px rgba(212,135,58,0.3); transition: opacity 0.15s, transform 0.1s; }
   .btn-primary:hover  { opacity: 0.9; transform: translateY(-1px); }
   .btn-primary:active { transform: scale(0.97); }
-
-  .btn-outline {
-    background: transparent;
-    color: var(--sub);
-    border: 1px solid var(--border);
-    border-radius: 7px;
-    font-family: 'Noto Sans JP', sans-serif;
-    font-size: 0.88rem;
-    padding: 8px 16px;
-    cursor: pointer;
-    transition: all 0.15s;
-  }
+  .btn-outline { background: transparent; color: var(--sub); border: 1px solid var(--border); border-radius: 7px; font-family: 'Noto Sans JP', sans-serif; font-size: 0.88rem; padding: 8px 16px; cursor: pointer; transition: all 0.15s; }
   .btn-outline:hover { border-color: var(--accent); color: var(--accent2); }
-
-  .btn-lend {
-    background: rgba(212,135,58,0.14);
-    border: 1px solid rgba(212,135,58,0.4);
-    color: var(--accent2);
-    border-radius: 7px;
-    font-size: 0.78rem;
-    font-weight: 700;
-    padding: 5px 11px;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: all 0.15s;
-  }
+  .btn-lend { background: rgba(212,135,58,0.14); border: 1px solid rgba(212,135,58,0.4); color: var(--accent2); border-radius: 7px; font-size: 0.78rem; font-weight: 700; padding: 5px 11px; cursor: pointer; white-space: nowrap; transition: all 0.15s; }
   .btn-lend:hover { background: rgba(212,135,58,0.28); }
-
-  .btn-return {
-    background: rgba(90,158,106,0.14);
-    border: 1px solid rgba(90,158,106,0.4);
-    color: #7ecf8e;
-    border-radius: 7px;
-    font-size: 0.78rem;
-    font-weight: 700;
-    padding: 5px 11px;
-    cursor: pointer;
-    white-space: nowrap;
-    flex-shrink: 0;
-    transition: all 0.15s;
-  }
+  .btn-return { background: rgba(90,158,106,0.14); border: 1px solid rgba(90,158,106,0.4); color: #7ecf8e; border-radius: 7px; font-size: 0.78rem; font-weight: 700; padding: 5px 11px; cursor: pointer; white-space: nowrap; flex-shrink: 0; transition: all 0.15s; }
   .btn-return:hover { background: rgba(90,158,106,0.28); }
-
-  .btn-return-confirm {
-    background: linear-gradient(135deg, var(--green), #3e7a50);
-    color: #fff;
-    border: none;
-    border-radius: 7px;
-    font-family: 'Noto Sans JP', sans-serif;
-    font-size: 0.88rem;
-    font-weight: 700;
-    padding: 8px 20px;
-    cursor: pointer;
-    box-shadow: 0 2px 8px rgba(90,158,106,0.3);
-    transition: opacity 0.15s, transform 0.1s;
-  }
+  .btn-return-confirm { background: linear-gradient(135deg, var(--green), #3e7a50); color: #fff; border: none; border-radius: 7px; font-family: 'Noto Sans JP', sans-serif; font-size: 0.88rem; font-weight: 700; padding: 8px 20px; cursor: pointer; box-shadow: 0 2px 8px rgba(90,158,106,0.3); transition: opacity 0.15s, transform 0.1s; }
   .btn-return-confirm:hover  { opacity: 0.9; transform: translateY(-1px); }
   .btn-return-confirm:active { transform: scale(0.97); }
 
-  /* ===== モーダル ===== */
-  .modal-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.72);
-    backdrop-filter: blur(5px);
-    z-index: 200;
-    align-items: center;
-    justify-content: center;
-    padding: 16px;
-  }
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.72); backdrop-filter: blur(5px); z-index: 200; align-items: center; justify-content: center; padding: 16px; }
   .modal-overlay.active { display: flex; }
-  .modal-box {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    width: 100%;
-    max-width: 420px;
-    box-shadow: 0 28px 64px rgba(0,0,0,0.65);
-    overflow: hidden;
-    animation: modalIn 0.2s ease;
-  }
-  @keyframes modalIn {
-    from { opacity: 0; transform: scale(0.94) translateY(12px); }
-    to   { opacity: 1; transform: scale(1) translateY(0); }
-  }
-  .modal-header {
-    background: var(--surface2);
-    border-bottom: 1px solid var(--border);
-    padding: 14px 18px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .modal-header h3 {
-    font-family: 'Zen Maru Gothic', sans-serif;
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--accent2);
-  }
-  .modal-close {
-    background: none;
-    border: none;
-    color: var(--sub);
-    font-size: 1rem;
-    cursor: pointer;
-    padding: 4px;
-    border-radius: 4px;
-    line-height: 1;
-    transition: color 0.15s;
-  }
+  .modal-box { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; width: 100%; max-width: 420px; box-shadow: 0 28px 64px rgba(0,0,0,0.65); overflow: hidden; animation: modalIn 0.2s ease; }
+  @keyframes modalIn { from { opacity: 0; transform: scale(0.94) translateY(12px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+  .modal-header { background: var(--surface2); border-bottom: 1px solid var(--border); padding: 14px 18px; display: flex; justify-content: space-between; align-items: center; }
+  .modal-header h3 { font-family: 'Zen Maru Gothic', sans-serif; font-size: 1rem; font-weight: 700; color: var(--accent2); }
+  .modal-close { background: none; border: none; color: var(--sub); font-size: 1rem; cursor: pointer; padding: 4px; border-radius: 4px; line-height: 1; transition: color 0.15s; }
   .modal-close:hover { color: var(--text); }
-  .modal-body {
-    padding: 18px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-  .modal-body label {
-    font-size: 0.82rem;
-    font-weight: 700;
-    color: var(--sub);
-    display: block;
-    margin-bottom: 4px;
-  }
-  .modal-body input {
-    width: 100%;
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    color: var(--text);
-    font-family: 'Noto Sans JP', sans-serif;
-    font-size: 0.95rem;
-    padding: 10px 13px;
-    outline: none;
-    transition: border-color 0.18s;
-  }
+  .modal-body { padding: 18px; display: flex; flex-direction: column; gap: 12px; }
+  .modal-body label { font-size: 0.82rem; font-weight: 700; color: var(--sub); display: block; margin-bottom: 4px; }
+  .modal-body input { width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-family: 'Noto Sans JP', sans-serif; font-size: 0.95rem; padding: 10px 13px; outline: none; transition: border-color 0.18s; }
   .modal-body input:focus { border-color: var(--accent); }
-  .lend-hint {
-    font-size: 0.75rem;
-    color: var(--sub);
-    margin-top: -4px;
-  }
-  .modal-game-info {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 12px 14px;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-  .mgi-shelf    { font-size: 0.7rem;  color: var(--sub);    font-weight: 700; }
+  .modal-game-info { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; display: flex; flex-direction: column; gap: 4px; }
+  .mgi-shelf    { font-size: 0.7rem;  color: var(--sub); font-weight: 700; }
   .mgi-name     { font-family: 'Zen Maru Gothic', sans-serif; font-size: 1.05rem; font-weight: 700; color: var(--accent2); }
   .mgi-meta     { font-size: 0.78rem; color: var(--sub); }
   .mgi-note     { font-size: 0.75rem; color: var(--sub); margin-top: 2px; }
   .mgi-borrower { font-size: 0.82rem; color: var(--sub); }
   .return-confirm { font-size: 0.88rem; color: var(--sub); text-align: center; }
   .required { color: var(--accent); }
-  .modal-footer {
-    padding: 12px 18px;
-    border-top: 1px solid var(--border);
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-  }
+  .modal-footer { padding: 12px 18px; border-top: 1px solid var(--border); display: flex; justify-content: flex-end; gap: 10px; }
 
-  /* ===== 状態 ===== */
-  .loading, .empty-state, .error-state {
-    text-align: center;
-    color: var(--sub);
-    padding: 56px 16px;
-    font-size: 0.95rem;
-    grid-column: 1 / -1;
-  }
+  .loading, .empty-state, .error-state { text-align: center; color: var(--sub); padding: 56px 16px; font-size: 0.95rem; grid-column: 1 / -1; }
   .error-state { color: #e08880; }
 
-  /* ===== トースト ===== */
-  .toast {
-    position: fixed;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%) translateY(70px);
-    background: var(--surface3);
-    border: 1px solid var(--border);
-    color: var(--text);
-    font-size: 0.88rem;
-    padding: 11px 22px;
-    border-radius: 40px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
-    opacity: 0;
-    transition: all 0.28s ease;
-    z-index: 999;
-    white-space: nowrap;
-    pointer-events: none;
-  }
+  .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(70px); background: var(--surface3); border: 1px solid var(--border); color: var(--text); font-size: 0.88rem; padding: 11px 22px; border-radius: 40px; box-shadow: 0 8px 24px rgba(0,0,0,0.5); opacity: 0; transition: all 0.28s ease; z-index: 999; white-space: nowrap; pointer-events: none; }
   .toast.show    { opacity: 1; transform: translateX(-50%) translateY(0); }
   .toast-success { border-color: rgba(90,158,106,0.6);  background: rgba(30,60,36,0.95); }
   .toast-error   { border-color: rgba(192,84,74,0.6);   background: rgba(60,28,26,0.95); }
   .toast-info    { border-color: rgba(200,168,75,0.4);  background: rgba(50,40,20,0.95); }
 
-  /* ===== レスポンシブ ===== */
   @media (max-width: 500px) {
     .games-grid { grid-template-columns: 1fr; }
-    .filter-bar select { width: 100%; }
     .stats { display: none; }
     .login-box { padding: 36px 24px; }
   }
-
-  /* ===== ソートバー ===== */
-  .sort-bar {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 16px 12px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    flex-wrap: wrap;
-  }
-  .sort-label {
-    font-size: 0.78rem;
-    color: var(--sub);
-    flex-shrink: 0;
-  }
-  .sort-btn {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    color: var(--sub);
-    font-family: 'Noto Sans JP', sans-serif;
-    font-size: 0.78rem;
-    padding: 4px 12px;
-    cursor: pointer;
-    transition: all 0.15s;
-    white-space: nowrap;
-  }
-  .sort-btn:hover  { border-color: var(--accent); color: var(--accent2); }
-  .sort-btn.active { background: rgba(212,135,58,0.18); border-color: var(--accent); color: var(--accent2); font-weight: 700; }
-  .sort-order-btn {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    color: var(--sub);
-    font-family: 'Noto Sans JP', sans-serif;
-    font-size: 0.78rem;
-    padding: 4px 10px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.15s;
-    flex-shrink: 0;
-    white-space: nowrap;
-  }
-  .sort-order-btn:hover { border-color: var(--accent); color: var(--accent2); }
-
-
-  /* ===== カード画像 ===== */
-  .card-img {
-    margin: -13px -13px 0;   /* カードのpaddingを打ち消して端まで広げる */
-    border-radius: var(--radius) var(--radius) 0 0;
-    overflow: hidden;
-    height: 140px;
-    background: var(--surface3);
-  }
-  .card-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.3s ease;
-  }
-  .game-card:hover .card-img img { transform: scale(1.04); }
-
-
-  /* ===== 人数フィルター ===== */
-  .player-filter-bar {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 16px 10px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    flex-wrap: wrap;
-  }
-  .player-btn {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    color: var(--sub);
-    font-family: 'Noto Sans JP', sans-serif;
-    font-size: 0.78rem;
-    font-weight: 700;
-    min-width: 32px;
-    padding: 4px 10px;
-    cursor: pointer;
-    transition: all 0.15s;
-    white-space: nowrap;
-  }
-  .player-btn:hover  { border-color: var(--accent); color: var(--accent2); }
-  .player-btn.active { background: rgba(212,135,58,0.18); border-color: var(--accent); color: var(--accent2); }
-
-
-  /* ===== タグフィルターバー ===== */
-  .tag-filter-bar {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 16px 10px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    flex-wrap: wrap;
-  }
-  .tag-filter-chips { display: flex; flex-wrap: wrap; gap: 5px; flex: 1; }
-
-  .tag-chip {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    color: var(--sub);
-    font-family: 'Noto Sans JP', sans-serif;
-    font-size: 0.75rem;
-    padding: 3px 10px;
-    cursor: pointer;
-    transition: all 0.15s;
-    white-space: nowrap;
-  }
-  .tag-chip:hover          { border-color: var(--accent); color: var(--accent2); }
-  .tag-chip.tag-include    { background: rgba(90,158,106,0.18); border-color: rgba(90,158,106,0.5); color: #7ecf8e; font-weight: 700; }
-  .tag-chip.tag-exclude    { background: rgba(192,84,74,0.18);  border-color: rgba(192,84,74,0.5);  color: #e08880; font-weight: 700; }
-
-  .tag-filter-reset {
-    background: none;
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    color: var(--sub);
-    font-family: 'Noto Sans JP', sans-serif;
-    font-size: 0.73rem;
-    padding: 3px 10px;
-    cursor: pointer;
-    flex-shrink: 0;
-    transition: all 0.15s;
-  }
-  .tag-filter-reset:hover { border-color: var(--red); color: #e08880; }
-
-  /* ===== カード内ジャンルタグ ===== */
-  .game-card-tags { display: flex; flex-wrap: wrap; gap: 4px; }
-  .game-tag {
-    font-size: 0.65rem;
-    padding: 1px 6px;
-    border-radius: 20px;
-    background: rgba(200,168,75,0.12);
-    color: var(--gold2);
-    border: 1px solid rgba(200,168,75,0.3);
-    white-space: nowrap;
-  }
-
-
-  /* ===== 折りたたみフィルターパネル ===== */
-  .filter-bar {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .filter-bar input { flex: 1; }
-
-  .btn-filter-toggle {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    color: var(--sub);
-    font-family: 'Noto Sans JP', sans-serif;
-    font-size: 0.85rem;
-    padding: 7px 14px;
-    cursor: pointer;
-    white-space: nowrap;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    transition: all 0.15s;
-    position: relative;
-  }
-  .btn-filter-toggle:hover  { border-color: var(--accent); color: var(--accent2); }
-  .btn-filter-toggle.has-filter { border-color: var(--accent); color: var(--accent2); background: rgba(212,135,58,0.1); }
-
-  .filter-active-badge {
-    background: var(--accent);
-    color: #fff;
-    font-size: 0.65rem;
-    font-weight: 700;
-    min-width: 16px;
-    height: 16px;
-    border-radius: 20px;
-    padding: 0 4px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .filter-panel {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 16px;
-    animation: slideDown 0.2s ease;
-  }
-  @keyframes slideDown {
-    from { opacity: 0; transform: translateY(-6px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  .filter-panel-inner {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 14px 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-bottom: 8px;
-  }
-
-  .filter-row {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 6px;
-  }
-  .filter-row-btns {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-  }
-  .filter-row-reset {
-    justify-content: flex-end;
-    padding-top: 4px;
-    border-top: 1px solid var(--surface3);
-  }
-
-  .btn-filter-reset-all {
-    background: none;
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    color: var(--sub);
-    font-family: 'Noto Sans JP', sans-serif;
-    font-size: 0.78rem;
-    padding: 4px 12px;
-    cursor: pointer;
-    transition: all 0.15s;
-  }
-  .btn-filter-reset-all:hover { border-color: var(--red); color: #e08880; }
-
-  /* パネル内のselectも調整 */
-  .filter-panel select {
-    background: var(--surface3);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    color: var(--text);
-    font-family: 'Noto Sans JP', sans-serif;
-    font-size: 0.85rem;
-    padding: 5px 10px;
-    outline: none;
-    transition: border-color 0.15s;
-  }
-  .filter-panel select:focus { border-color: var(--accent); }
-  .filter-panel select option { background: var(--surface2); }
-
-  /* タグフィルターバーはパネル内では幅いっぱいに */
-  #tagFilterBar { width: 100%; }
-
 </style>
-
 </head>
 <body>
 
-<!-- ===== ログイン画面 ===== -->
+<div id="jsonp-container" style="display:none"></div>
 <div id="login-screen" class="login-screen">
   <div class="login-box">
     <div class="login-logo">♟</div>
     <h1 class="login-title">ボードゲーム部室</h1>
-    <p class="login-desc">メールアドレスを入力すると<br>このブラウザにプレイ記録が保存されます</p>
+    <p class="login-desc">メールアドレスを入力すると<br>プレイ記録がサーバーに保存されます</p>
     <div class="login-form">
       <input type="email" id="login-email" placeholder="your@gmail.com" />
       <button class="btn-login" onclick="login()">はじめる</button>
@@ -925,15 +278,10 @@
   </div>
 </div>
 
-<!-- ===== メインアプリ ===== -->
 <div id="app" class="app-wrapper" style="display:none">
-
   <header class="header">
     <div class="header-inner">
-      <div class="logo">
-        <span class="logo-icon">♟</span>
-        <span class="logo-text">ボードゲーム部室</span>
-      </div>
+      <div class="logo"><span class="logo-icon">♟</span><span class="logo-text">ボードゲーム部室</span></div>
       <div class="header-right">
         <div class="stats" id="headerStats"></div>
         <div class="user-chip" id="userChip">
@@ -953,7 +301,6 @@
     <button class="tab-btn"        data-tab="played"    onclick="switchTab(this)">⭐ プレイ済み</button>
   </nav>
 
-  <!-- 検索バー（常に表示） -->
   <div class="filter-bar">
     <input type="text" id="searchInput" placeholder="🔍 ゲーム名・棚番で検索..." oninput="applyFilter()" />
     <button class="btn-filter-toggle" id="filterToggleBtn" onclick="toggleFilterPanel()">
@@ -962,10 +309,8 @@
     </button>
   </div>
 
-  <!-- 折りたたみパネル -->
   <div class="filter-panel" id="filterPanel" style="display:none">
     <div class="filter-panel-inner">
-
       <div class="filter-row">
         <span class="sort-label">言語・重さ：</span>
         <select id="langFilter" onchange="applyFilter(); updateFilterBadge()">
@@ -978,7 +323,6 @@
           <option value="重">重</option>
         </select>
       </div>
-
       <div class="filter-row">
         <span class="sort-label">人数：</span>
         <div class="filter-row-btns">
@@ -993,24 +337,22 @@
           <button class="player-btn" data-players="8" onclick="setPlayerFilter(8, this)">8+</button>
         </div>
       </div>
-
       <div class="filter-row" id="tagFilterBar" style="display:none">
         <span class="sort-label">タグ：</span>
         <div class="tag-filter-chips" id="tagFilterChips"></div>
         <button class="tag-filter-reset" onclick="resetTagFilter()">リセット</button>
       </div>
-
       <div class="filter-row filter-row-reset">
         <button class="btn-filter-reset-all" onclick="resetAllFilters()">🔄 すべてリセット</button>
       </div>
-
     </div>
   </div>
+
   <div class="sort-bar">
     <span class="sort-label">並び替え：</span>
-    <button class="sort-btn active" data-sort="shelf"  onclick="setSort('shelf', this)">棚番</button>
-    <button class="sort-btn" data-sort="name"   onclick="setSort('name', this)">名前</button>
-    <button class="sort-btn" data-sort="time"   onclick="setSort('time', this)">時間</button>
+    <button class="sort-btn active" data-sort="shelf" onclick="setSort('shelf', this)">棚番</button>
+    <button class="sort-btn" data-sort="name"  onclick="setSort('name', this)">名前</button>
+    <button class="sort-btn" data-sort="time"  onclick="setSort('time', this)">時間</button>
     <button class="sort-order-btn" id="sortOrderBtn" onclick="toggleSortOrder()">↑ 昇順</button>
   </div>
 
@@ -1023,13 +365,9 @@
   </main>
 </div>
 
-<!-- ===== モーダル：貸し出し ===== -->
 <div id="modal-lend" class="modal-overlay" onclick="closeModal('modal-lend')">
   <div class="modal-box" onclick="event.stopPropagation()">
-    <div class="modal-header">
-      <h3>📤 貸し出し</h3>
-      <button class="modal-close" onclick="closeModal('modal-lend')">✕</button>
-    </div>
+    <div class="modal-header"><h3>📤 貸し出し</h3><button class="modal-close" onclick="closeModal('modal-lend')">✕</button></div>
     <div class="modal-body">
       <div class="modal-game-info">
         <div class="mgi-shelf" id="m-shelf"></div>
@@ -1047,13 +385,9 @@
   </div>
 </div>
 
-<!-- ===== モーダル：返却確認 ===== -->
 <div id="modal-return" class="modal-overlay" onclick="closeModal('modal-return')">
   <div class="modal-box" onclick="event.stopPropagation()">
-    <div class="modal-header">
-      <h3>✅ 返却</h3>
-      <button class="modal-close" onclick="closeModal('modal-return')">✕</button>
-    </div>
+    <div class="modal-header"><h3>✅ 返却</h3><button class="modal-close" onclick="closeModal('modal-return')">✕</button></div>
     <div class="modal-body">
       <div class="modal-game-info">
         <div class="mgi-shelf"    id="mr-shelf"></div>
@@ -1070,67 +404,81 @@
 </div>
 
 <script>
-  // ===== GASのAPIエンドポイント =====
+  // ===== GAS APIエンドポイント =====
   // デプロイ後のURLに変更してください
-  const GAS_URL = 'https://script.google.com/macros/s/AKfycbxthxssVkUWIkWVaurUtAzI7MukRESiYPKaErDC4sEIYW-nnKfIBK-_IvbgSMOYAP_s/exec';
+  const GAS_URL = 'https://script.google.com/macros/s/YOUR_DEPLOY_ID/exec';
 
-  // GAS APIを呼び出すヘルパー関数
-  async function gasGet(action, params = {}) {
-    const url = new URL(GAS_URL);
-    url.searchParams.set('action', action);
-    Object.entries(params).forEach(([k, v]) => url.searchParams.set(k, v));
-    const res = await fetch(url.toString());
-    return res.json();
-  }
+  // GETはJSONPでCORSを回避
+  function gasGet(action, params = {}) {
+    return new Promise((resolve, reject) => {
+      const callbackName = 'cb_' + Date.now() + '_' + Math.random().toString(36).slice(2);
+      const url = new URL(GAS_URL);
+      url.searchParams.set('action', action);
+      url.searchParams.set('callback', callbackName);
+      Object.entries(params).forEach(([k, v]) => url.searchParams.set(k, v));
 
-  async function gasPost(action, data = {}) {
-    const res = await fetch(GAS_URL, {
-      method: 'POST',
-      body: JSON.stringify({ action, ...data }),
+      window[callbackName] = (data) => {
+        delete window[callbackName];
+        document.getElementById('jsonp-container').removeChild(script);
+        resolve(data);
+      };
+
+      const script = document.createElement('script');
+      script.src = url.toString();
+      script.onerror = () => { delete window[callbackName]; reject(new Error('JSONP failed')); };
+      document.getElementById('jsonp-container').appendChild(script);
     });
-    return res.json();
   }
+
+  // POSTもGETに変換してJSONPで送る（GASはPOSTのCORSに非対応のため）
+  function gasPost(action, data = {}) {
+    return new Promise((resolve, reject) => {
+      const callbackName = 'cb_' + Date.now() + '_' + Math.random().toString(36).slice(2);
+      const url = new URL(GAS_URL);
+      url.searchParams.set('action', action);
+      url.searchParams.set('callback', callbackName);
+      Object.entries(data).forEach(([k, v]) => url.searchParams.set(k, String(v)));
+
+      window[callbackName] = (result) => {
+        delete window[callbackName];
+        document.getElementById('jsonp-container').removeChild(script);
+        resolve(result);
+      };
+
+      const script = document.createElement('script');
+      script.src = url.toString();
+      script.onerror = () => { delete window[callbackName]; reject(new Error('JSONP failed')); };
+      document.getElementById('jsonp-container').appendChild(script);
+    });
+  }
+
   // ===== 状態 =====
-  let allGames    = [];
-  let currentTab  = 'all';
-  let pendingRow  = null;
+  let allGames     = [];
+  let currentTab   = 'all';
+  let pendingRow   = null;
   let currentEmail = '';
-  let currentSort = 'shelf';
-  let sortAsc     = true;
+  let currentSort  = 'shelf';
+  let sortAsc      = true;
   let playerFilter = 0;
-  let tagFilters   = {}; // { タグ名: 'include'|'exclude' }
+  let tagFilters   = {};
+  let playedCache  = null;
 
   const LS_EMAIL = 'bgm_email';
-  function lsPlayedKey(e) { return 'bgm_played_' + e; }
-  function lsGet(k)      { try { return localStorage.getItem(k); }     catch(e) { return null; } }
-  function lsSet(k, v)   { try { localStorage.setItem(k, v); }         catch(e) {} }
-  function lsDel(k)      { try { localStorage.removeItem(k); }         catch(e) {} }
+  function lsGet(k)      { try { return localStorage.getItem(k); }  catch(e) { return null; } }
+  function lsSet(k, v)   { try { localStorage.setItem(k, v); }      catch(e) {} }
+  function lsDel(k)      { try { localStorage.removeItem(k); }      catch(e) {} }
 
-  // プレイ済みデータはスプレッドシートで管理
-  // キャッシュとしてメモリに保持（毎回サーバーに問い合わせしないため）
-  let playedCache = null;
-
-  function getPlayedSet() {
-    return playedCache || new Set();
-  }
+  function getPlayedSet() { return playedCache || new Set(); }
 
   function loadPlayedFromServer() {
     return gasGet('getPlayed', { email: currentEmail })
-      .then(data => {
-        playedCache = new Set(data.played || []);
-        return playedCache;
-      })
-      .catch(() => {
-        playedCache = new Set();
-        return playedCache;
-      });
+      .then(data => { playedCache = new Set(data.played || []); return playedCache; })
+      .catch(() => { playedCache = new Set(); return playedCache; });
   }
 
   // ===== 起動 =====
   window.onload = () => {
-    document.getElementById('login-email').addEventListener('keydown', e => {
-      if (e.key === 'Enter') login();
-    });
+    document.getElementById('login-email').addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
     const saved = lsGet(LS_EMAIL);
     if (saved) { startApp(saved); }
     else { document.getElementById('login-screen').style.display = 'flex'; }
@@ -1156,17 +504,12 @@
     document.getElementById('userAvatar').textContent     = email.charAt(0).toUpperCase();
     document.getElementById('userEmailLabel').textContent = email.length > 22 ? email.substring(0, 20) + '…' : email;
     document.getElementById('userChip').title = email;
-    // プレイ済みをサーバーから読み込んでからゲーム一覧を表示
     loadPlayedFromServer().then(() => loadGames());
   }
 
   function logout() {
     lsDel(LS_EMAIL);
-    currentEmail = '';
-    allGames = [];
-    currentTab = 'all';
-    tagFilters = {};
-    playedCache = null;
+    currentEmail = ''; allGames = []; currentTab = 'all'; tagFilters = {}; playedCache = null;
     document.getElementById('app').style.display          = 'none';
     document.getElementById('login-screen').style.display = 'flex';
     document.getElementById('login-email').value          = '';
@@ -1174,23 +517,18 @@
     document.querySelectorAll('.tab-btn').forEach((b, i) => b.classList.toggle('active', i === 0));
   }
 
-  // ===== データ読み込み =====
+  // ===== データ =====
   function loadGames() {
     document.getElementById('gamesList').innerHTML = '<div class="loading">読み込み中...</div>';
     gasGet('getGames')
       .then(data => {
-        if (data && data.error) {
-          document.getElementById('gamesList').innerHTML = `<div class="error-state">⚠️ ${data.error}</div>`;
-          return;
-        }
+        if (data && data.error) { document.getElementById('gamesList').innerHTML = `<div class="error-state">⚠️ ${data.error}</div>`; return; }
         allGames = data;
         buildFilters();
         updateHeaderStats();
         applyFilter();
       })
-      .catch(e => {
-        document.getElementById('gamesList').innerHTML = `<div class="error-state">⚠️ ${e.message}</div>`;
-      });
+      .catch(e => { document.getElementById('gamesList').innerHTML = `<div class="error-state">⚠️ ${e.message}</div>`; });
   }
 
   function buildFilters() {
@@ -1207,10 +545,8 @@
     const lending = allGames.filter(g => g.borrower).length;
     const played  = getPlayedSet().size;
     document.getElementById('headerStats').innerHTML =
-      `<span class="stat-item avail">在庫 ${total - lending}</span>` +
-      `<span class="stat-sep">/</span>` +
-      `<span class="stat-item lend">貸出中 ${lending}</span>` +
-      `<span class="stat-sep">/</span>` +
+      `<span class="stat-item avail">在庫 ${total - lending}</span><span class="stat-sep">/</span>` +
+      `<span class="stat-item lend">貸出中 ${lending}</span><span class="stat-sep">/</span>` +
       `<span class="stat-item played-stat">⭐ ${played}</span>`;
   }
 
@@ -1242,68 +578,21 @@
 
   function toggleTagFilter(tag) {
     const cur = tagFilters[tag];
-    if (!cur)             { tagFilters[tag] = 'include'; }
+    if (!cur)                  { tagFilters[tag] = 'include'; }
     else if (cur === 'include') { tagFilters[tag] = 'exclude'; }
-    else                  { delete tagFilters[tag]; }
-    updateTagChips();
-    updateFilterBadge();
-    applyFilter();
+    else                       { delete tagFilters[tag]; }
+    updateTagChips(); updateFilterBadge(); applyFilter();
   }
 
   function updateTagChips() {
     document.querySelectorAll('.tag-chip').forEach(btn => {
-      const tag   = btn.dataset.tag;
-      const state = tagFilters[tag];
+      const state = tagFilters[btn.dataset.tag];
       btn.className   = 'tag-chip' + (state ? ' tag-' + state : '');
-      btn.textContent = (state === 'include' ? '✅ ' : state === 'exclude' ? '❌ ' : '') + tag;
+      btn.textContent = (state === 'include' ? '✅ ' : state === 'exclude' ? '❌ ' : '') + btn.dataset.tag;
     });
   }
 
-  // ===== フィルターパネル開閉 =====
-  function toggleFilterPanel() {
-    const panel = document.getElementById('filterPanel');
-    const icon  = document.getElementById('filterToggleIcon');
-    const open  = panel.style.display === 'none';
-    panel.style.display = open ? 'block' : 'none';
-    icon.textContent    = open ? '▲' : '▼';
-  }
-
-  // アクティブなフィルター数をバッジ表示
-  function updateFilterBadge() {
-    const lang   = document.getElementById('langFilter').value;
-    const weight = document.getElementById('weightFilter').value;
-    const count  = (lang ? 1 : 0) + (weight ? 1 : 0) + (playerFilter > 0 ? 1 : 0) + Object.keys(tagFilters).length;
-    const badge  = document.getElementById('filterActiveBadge');
-    const btn    = document.getElementById('filterToggleBtn');
-    if (count > 0) {
-      badge.textContent  = count;
-      badge.style.display = 'inline';
-      btn.classList.add('has-filter');
-    } else {
-      badge.style.display = 'none';
-      btn.classList.remove('has-filter');
-    }
-  }
-
-  function resetAllFilters() {
-    // 言語・重さ
-    document.getElementById('langFilter').value   = '';
-    document.getElementById('weightFilter').value = '';
-    // 人数
-    playerFilter = 0;
-    document.querySelectorAll('.player-btn').forEach((b, i) => b.classList.toggle('active', i === 0));
-    // タグ
-    tagFilters = {};
-    updateTagChips();
-    updateFilterBadge();
-    applyFilter();
-  }
-
-  function resetTagFilter() {
-    tagFilters = {};
-    updateTagChips();
-    applyFilter();
-  }
+  function resetTagFilter()  { tagFilters = {}; updateTagChips(); applyFilter(); }
 
   function matchTagFilter(tagsStr) {
     const gameTags = parseTags(tagsStr);
@@ -1314,53 +603,69 @@
     return true;
   }
 
+  // ===== フィルターパネル =====
+  function toggleFilterPanel() {
+    const panel = document.getElementById('filterPanel');
+    const icon  = document.getElementById('filterToggleIcon');
+    const open  = panel.style.display === 'none';
+    panel.style.display = open ? 'block' : 'none';
+    icon.textContent    = open ? '▲' : '▼';
+  }
+
+  function updateFilterBadge() {
+    const lang  = document.getElementById('langFilter').value;
+    const wt    = document.getElementById('weightFilter').value;
+    const count = (lang?1:0) + (wt?1:0) + (playerFilter>0?1:0) + Object.keys(tagFilters).length;
+    const badge = document.getElementById('filterActiveBadge');
+    const btn   = document.getElementById('filterToggleBtn');
+    if (count > 0) { badge.textContent = count; badge.style.display = 'inline'; btn.classList.add('has-filter'); }
+    else           { badge.style.display = 'none'; btn.classList.remove('has-filter'); }
+  }
+
+  function resetAllFilters() {
+    document.getElementById('langFilter').value = '';
+    document.getElementById('weightFilter').value = '';
+    playerFilter = 0;
+    document.querySelectorAll('.player-btn').forEach((b, i) => b.classList.toggle('active', i === 0));
+    tagFilters = {}; updateTagChips(); updateFilterBadge(); applyFilter();
+  }
+
   // ===== 人数フィルター =====
   function parsePlayers(str) {
     if (!str || str === '×') return new Set();
     const result = new Set();
-    const segments = str.replace(/〜/g, '~').split(',');
-    for (const seg of segments) {
-      const trimmed = seg.trim();
-      if (trimmed.includes('~')) {
-        const [min, max] = trimmed.split('~').map(s => parseInt(s.trim()));
-        if (!isNaN(min) && !isNaN(max)) for (let n = min; n <= max; n++) result.add(n);
-      } else {
-        const n = parseInt(trimmed);
-        if (!isNaN(n)) result.add(n);
-      }
-    }
+    str.replace(/〜/g, '~').split(',').forEach(seg => {
+      seg = seg.trim();
+      if (seg.includes('~')) {
+        const [mn, mx] = seg.split('~').map(s => parseInt(s));
+        if (!isNaN(mn) && !isNaN(mx)) for (let n = mn; n <= mx; n++) result.add(n);
+      } else { const n = parseInt(seg); if (!isNaN(n)) result.add(n); }
+    });
     return result;
   }
 
-  function canPlayWith(playersStr, count) {
+  function canPlayWith(str, count) {
     if (count === 0) return true;
-    const set = parsePlayers(playersStr);
-    if (count === 8) return [...set].some(n => n >= 8);
-    return set.has(count);
+    const set = parsePlayers(str);
+    return count === 8 ? [...set].some(n => n >= 8) : set.has(count);
   }
 
   function setPlayerFilter(count, btn) {
     playerFilter = count;
     document.querySelectorAll('.player-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    updateFilterBadge();
-    applyFilter();
+    updateFilterBadge(); applyFilter();
   }
 
   // ===== ソート =====
   const WEIGHT_ORDER = { '軽': 0, '中': 1, '重': 2 };
 
   const HIRA_TO_ROMA = [
-    ['きゃ','kya'],['きゅ','kyu'],['きょ','kyo'],
-    ['しゃ','sha'],['しゅ','shu'],['しょ','sho'],
-    ['ちゃ','cha'],['ちゅ','chu'],['ちょ','cho'],
-    ['にゃ','nya'],['にゅ','nyu'],['にょ','nyo'],
-    ['ひゃ','hya'],['ひゅ','hyu'],['ひょ','hyo'],
-    ['みゃ','mya'],['みゅ','myu'],['みょ','myo'],
-    ['りゃ','rya'],['りゅ','ryu'],['りょ','ryo'],
-    ['ぎゃ','gya'],['ぎゅ','gyu'],['ぎょ','gyo'],
-    ['じゃ','ja'], ['じゅ','ju'], ['じょ','jo'],
-    ['びゃ','bya'],['びゅ','byu'],['びょ','byo'],
+    ['きゃ','kya'],['きゅ','kyu'],['きょ','kyo'],['しゃ','sha'],['しゅ','shu'],['しょ','sho'],
+    ['ちゃ','cha'],['ちゅ','chu'],['ちょ','cho'],['にゃ','nya'],['にゅ','nyu'],['にょ','nyo'],
+    ['ひゃ','hya'],['ひゅ','hyu'],['ひょ','hyo'],['みゃ','mya'],['みゅ','myu'],['みょ','myo'],
+    ['りゃ','rya'],['りゅ','ryu'],['りょ','ryo'],['ぎゃ','gya'],['ぎゅ','gyu'],['ぎょ','gyo'],
+    ['じゃ','ja'],['じゅ','ju'],['じょ','jo'],['びゃ','bya'],['びゅ','byu'],['びょ','byo'],
     ['ぴゃ','pya'],['ぴゅ','pyu'],['ぴょ','pyo'],
     ['あ','a'],['い','i'],['う','u'],['え','e'],['お','o'],
     ['か','ka'],['き','ki'],['く','ku'],['け','ke'],['こ','ko'],
@@ -1382,44 +687,31 @@
   ];
 
   function toRomaji(str) {
-    let s = str.normalize('NFKC').toLowerCase();
-    s = s.replace(/[\u30A1-\u30F6]/g, c => String.fromCharCode(c.charCodeAt(0) - 0x60));
-    for (const [hira, roma] of HIRA_TO_ROMA) s = s.split(hira).join(roma);
+    let s = str.normalize('NFKC').toLowerCase().replace(/[\u30A1-\u30F6]/g, c => String.fromCharCode(c.charCodeAt(0) - 0x60));
+    for (const [h, r] of HIRA_TO_ROMA) s = s.split(h).join(r);
     return s;
   }
 
-  function sortKey(g) {
-    const base = g.yomi ? g.yomi : g.name;
-    return toRomaji(base);
-  }
+  function sortKey(g) { return toRomaji(g.yomi || g.name); }
 
   function parseTime(str) {
     if (!str || str === '×' || str.toLowerCase() === 'x') return null;
-    const parts = str.split('-').map(s => parseFloat(s.trim())).filter(n => !isNaN(n));
-    if (parts.length === 0) return null;
-    if (parts.length === 1) return parts[0];
-    return (parts[0] + parts[1]) / 2;
+    const parts = str.split('-').map(s => parseFloat(s)).filter(n => !isNaN(n));
+    if (!parts.length) return null;
+    return parts.length === 1 ? parts[0] : (parts[0] + parts[1]) / 2;
   }
 
   function setSort(key, btn) {
     if (currentSort === key) { toggleSortOrder(); return; }
-    currentSort = key;
-    sortAsc = true;
+    currentSort = key; sortAsc = true;
     document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    updateSortOrderBtn();
-    applyFilter();
+    btn.classList.add('active'); updateSortOrderBtn(); applyFilter();
   }
 
-  function toggleSortOrder() {
-    sortAsc = !sortAsc;
-    updateSortOrderBtn();
-    applyFilter();
-  }
+  function toggleSortOrder() { sortAsc = !sortAsc; updateSortOrderBtn(); applyFilter(); }
 
   function updateSortOrderBtn() {
-    const btn = document.getElementById('sortOrderBtn');
-    btn.textContent = sortAsc ? '↑ 昇順' : '↓ 降順';
+    document.getElementById('sortOrderBtn').textContent = sortAsc ? '↑ 昇順' : '↓ 降順';
   }
 
   function sortGames(games) {
@@ -1434,8 +726,7 @@
       let va, vb;
       if (currentSort === 'shelf') {
         const na = parseFloat(a.shelf), nb = parseFloat(b.shelf);
-        va = isNaN(na) ? a.shelf : na;
-        vb = isNaN(nb) ? b.shelf : nb;
+        va = isNaN(na) ? a.shelf : na; vb = isNaN(nb) ? b.shelf : nb;
       } else if (currentSort === 'name') {
         va = sortKey(a); vb = sortKey(b);
       }
@@ -1445,28 +736,21 @@
     });
   }
 
-  // ===== 検索（表記揺れ対応） =====
+  // ===== 検索 =====
   const ROMAJI_MAP = [
-    ['chi','ち'],['thi','ち'],['shi','し'],['tsu','つ'],['dzu','づ'],
-    ['sha','しゃ'],['shu','しゅ'],['sho','しょ'],
-    ['cha','ちゃ'],['chu','ちゅ'],['cho','ちょ'],
-    ['kya','きゃ'],['kyu','きゅ'],['kyo','きょ'],
-    ['nya','にゃ'],['nyu','にゅ'],['nyo','にょ'],
-    ['hya','ひゃ'],['hyu','ひゅ'],['hyo','ひょ'],
-    ['mya','みゃ'],['myu','みゅ'],['myo','みょ'],
-    ['rya','りゃ'],['ryu','りゅ'],['ryo','りょ'],
-    ['gya','ぎゃ'],['gyu','ぎゅ'],['gyo','ぎょ'],
-    ['ja','じゃ'],['ju','じゅ'],['jo','じょ'],
+    ['chi','ち'],['thi','ち'],['shi','し'],['tsu','つ'],['sha','しゃ'],['shu','しゅ'],['sho','しょ'],
+    ['cha','ちゃ'],['chu','ちゅ'],['cho','ちょ'],['kya','きゃ'],['kyu','きゅ'],['kyo','きょ'],
+    ['nya','にゃ'],['nyu','にゅ'],['nyo','にょ'],['hya','ひゃ'],['hyu','ひゅ'],['hyo','ひょ'],
+    ['mya','みゃ'],['myu','みゅ'],['myo','みょ'],['rya','りゃ'],['ryu','りゅ'],['ryo','りょ'],
+    ['gya','ぎゃ'],['gyu','ぎゅ'],['gyo','ぎょ'],['ja','じゃ'],['ju','じゅ'],['jo','じょ'],
     ['ka','か'],['ki','き'],['ku','く'],['ke','け'],['ko','こ'],
     ['sa','さ'],['si','し'],['su','す'],['se','せ'],['so','そ'],
     ['ta','た'],['ti','ち'],['tu','つ'],['te','て'],['to','と'],
     ['na','な'],['ni','に'],['nu','ぬ'],['ne','ね'],['no','の'],
     ['ha','は'],['hi','ひ'],['fu','ふ'],['hu','ふ'],['he','へ'],['ho','ほ'],
     ['ma','ま'],['mi','み'],['mu','む'],['me','め'],['mo','も'],
-    ['ya','や'],['yu','ゆ'],['yo','よ'],
-    ['ra','ら'],['ri','り'],['ru','る'],['re','れ'],['ro','ろ'],
-    ['wa','わ'],['wo','を'],
-    ['ga','が'],['gi','ぎ'],['gu','ぐ'],['ge','げ'],['go','ご'],
+    ['ya','や'],['yu','ゆ'],['yo','よ'],['ra','ら'],['ri','り'],['ru','る'],['re','れ'],['ro','ろ'],
+    ['wa','わ'],['wo','を'],['ga','が'],['gi','ぎ'],['gu','ぐ'],['ge','げ'],['go','ご'],
     ['za','ざ'],['zi','じ'],['zu','ず'],['ze','ぜ'],['zo','ぞ'],
     ['da','だ'],['di','ぢ'],['du','づ'],['de','で'],['do','ど'],
     ['ba','ば'],['bi','び'],['bu','ぶ'],['be','べ'],['bo','ぼ'],
@@ -1475,24 +759,18 @@
   ];
 
   function normalize(str) {
-    return str.normalize('NFKC')
-      .toLowerCase()
-      .replace(/[・\.\-_\s　～〜·•◆◇■□▲△▼▽★☆\/\\|]/g, '');
+    return str.normalize('NFKC').toLowerCase().replace(/[・\.\-_\s　～〜·•◆◇■□▲△▼▽★☆\/\\|]/g, '');
   }
   function toHira(str) { return str.replace(/[\u30A1-\u30F6]/g, c => String.fromCharCode(c.charCodeAt(0) - 0x60)); }
   function toKata(str) { return str.replace(/[\u3041-\u3096]/g, c => String.fromCharCode(c.charCodeAt(0) + 0x60)); }
-
   function romajiToHira(str) {
     let s = str.toLowerCase().replace(/nn/g, 'ん').replace(/([bcdfghjklmnpqrstvwxyz])\1/g, 'っ$1');
-    for (const [roma, hira] of ROMAJI_MAP) s = s.split(roma).join(hira);
+    for (const [r, h] of ROMAJI_MAP) s = s.split(r).join(h);
     return s;
   }
-
   function fuzzyMatch(query, target) {
     if (!query || !target) return false;
-    const q  = normalize(query);
-    const qH = romajiToHira(q);
-    const qK = toKata(qH);
+    const q = normalize(query), qH = romajiToHira(q), qK = toKata(qH);
     const queries = [...new Set([q, toHira(q), toKata(q), qH, qK])];
     const targets = [normalize(target), toHira(normalize(target)), toKata(normalize(target))];
     return queries.some(qv => targets.some(tv => tv.includes(qv)));
@@ -1514,7 +792,7 @@
       if (weight && g.weight !== weight)                     return false;
       if (!canPlayWith(g.players, playerFilter))             return false;
       if (!matchTagFilter(g.tags || ''))                     return false;
-      if (q && !fuzzyMatch(q, g.name) && !fuzzyMatch(q, g.shelf) && !fuzzyMatch(q, g.yomi || '') && !fuzzyMatch(q, g.note || '')) return false;
+      if (q && !fuzzyMatch(q, g.name) && !fuzzyMatch(q, g.shelf) && !fuzzyMatch(q, g.yomi||'') && !fuzzyMatch(q, g.note||'')) return false;
       return true;
     });
 
@@ -1524,28 +802,21 @@
   // ===== レンダリング =====
   function renderGames(games, played) {
     const container = document.getElementById('gamesList');
-    if (games.length === 0) {
-      container.innerHTML = '<div class="empty-state">🎲 該当するゲームがありません</div>';
-      return;
-    }
+    if (!games.length) { container.innerHTML = '<div class="empty-state">🎲 該当するゲームがありません</div>'; return; }
     container.innerHTML = games.map(g => {
       const available = !g.borrower;
       const isPlayed  = played.has(g.name);
       const noteHtml  = g.note ? `<div class="game-note">📝 ${g.note}</div>` : '';
       const tagsHtml  = g.tags ? `<div class="game-card-tags">${[...parseTags(g.tags)].map(t => `<span class="game-tag">${t}</span>`).join('')}</div>` : '';
-      const imgHtml   = g.image
-        ? `<div class="card-img"><img src="${g.image}" alt="${g.name}" loading="lazy" onerror="this.parentElement.style.display='none'" /></div>`
-        : '';
+      const imgHtml   = g.image ? `<div class="card-img"><img src="${g.image}" alt="${g.name}" loading="lazy" onerror="this.parentElement.style.display='none'" /></div>` : '';
       return `
-        <div class="game-card ${available ? '' : 'borrowed'} ${isPlayed ? 'is-played-card' : ''}">
+        <div class="game-card ${available?'':'borrowed'} ${isPlayed?'is-played-card':''}">
           ${imgHtml}
           <div class="card-top">
             ${g.shelf ? `<span class="shelf-badge">棚 ${g.shelf}</span>` : '<span></span>'}
             <div class="card-top-right">
               ${isPlayed ? '<span class="played-badge">⭐ プレイ済み</span>' : ''}
-              <span class="status-badge ${available ? 'avail' : 'lend'}">
-                ${available ? '✓ 在庫あり' : '✗ 貸出中'}
-              </span>
+              <span class="status-badge ${available?'avail':'lend'}">${available?'✓ 在庫あり':'✗ 貸出中'}</span>
             </div>
           </div>
           <h3 class="game-name">${g.name}</h3>
@@ -1555,18 +826,13 @@
             ${g.time    ? `<span class="tag">⏱ ${g.time}分</span>` : ''}
             ${g.lang    ? `<span class="tag">🌐 ${g.lang}</span>` : ''}
           </div>
-          ${tagsHtml}
-          ${noteHtml}
+          ${tagsHtml}${noteHtml}
           <div class="card-footer">
-            <button class="btn-played ${isPlayed ? 'is-played' : ''}"
-              onclick="togglePlayed('${esc(g.name)}')"
-              title="${isPlayed ? 'プレイ済みを取り消す' : 'プレイ済みにする'}"
-            >${isPlayed ? '⭐' : '☆'}</button>
+            <button class="btn-played ${isPlayed?'is-played':''}" onclick="togglePlayed('${esc(g.name)}')" title="${isPlayed?'プレイ済みを取り消す':'プレイ済みにする'}">${isPlayed?'⭐':'☆'}</button>
             <div class="card-footer-right">
               ${available
                 ? `<button class="btn-lend" onclick="openLendModal(${g.rowIndex},'${esc(g.shelf)}','${esc(g.name)}','${esc(g.players)}','${esc(g.lang)}','${esc(g.time)}','${esc(g.note)}')">貸し出す</button>`
-                : `<div class="borrower-info">👤 ${g.borrower}</div>
-                   <button class="btn-return" onclick="openReturnModal(${g.rowIndex},'${esc(g.shelf)}','${esc(g.name)}','${esc(g.borrower)}')">返却</button>`
+                : `<div class="borrower-info">👤 ${g.borrower}</div><button class="btn-return" onclick="openReturnModal(${g.rowIndex},'${esc(g.shelf)}','${esc(g.name)}','${esc(g.borrower)}')">返却</button>`
               }
             </div>
           </div>
@@ -1574,56 +840,30 @@
     }).join('');
   }
 
-  function weightClass(w) {
-    if (w === '軽') return 'light';
-    if (w === '中') return 'mid';
-    if (w === '重') return 'heavy';
-    return 'unknown';
-  }
+  function weightClass(w) { return w==='軽'?'light':w==='中'?'mid':w==='重'?'heavy':'unknown'; }
 
   function togglePlayed(gameName) {
-    // 即座にUIを更新（楽観的更新）
     const set = getPlayedSet();
     const wasPlayed = set.has(gameName);
-    if (wasPlayed) { set.delete(gameName); } else { set.add(gameName); }
-    playedCache = set;
-    updateHeaderStats();
-    applyFilter();
-
-    // サーバーに保存
+    wasPlayed ? set.delete(gameName) : set.add(gameName);
+    playedCache = set; updateHeaderStats(); applyFilter();
     gasPost('togglePlayed', { email: currentEmail, gameName })
       .then(r => {
-        if (r.success) {
-          showToast(r.played ? '⭐ プレイ済みに記録しました' : 'プレイ済みを取り消しました', r.played ? 'success' : 'info');
-        } else {
-          if (wasPlayed) { set.add(gameName); } else { set.delete(gameName); }
-          playedCache = set;
-          updateHeaderStats();
-          applyFilter();
-          showToast('保存に失敗しました', 'error');
-        }
+        if (r.success) { showToast(r.played ? '⭐ プレイ済みに記録しました' : 'プレイ済みを取り消しました', r.played?'success':'info'); }
+        else { wasPlayed?set.add(gameName):set.delete(gameName); playedCache=set; updateHeaderStats(); applyFilter(); showToast('保存に失敗しました','error'); }
       })
-      .catch(() => {
-        if (wasPlayed) { set.add(gameName); } else { set.delete(gameName); }
-        playedCache = set;
-        updateHeaderStats();
-        applyFilter();
-        showToast('保存に失敗しました', 'error');
-      });
+      .catch(() => { wasPlayed?set.add(gameName):set.delete(gameName); playedCache=set; updateHeaderStats(); applyFilter(); showToast('保存に失敗しました','error'); });
   }
 
   function openLendModal(rowIndex, shelf, name, players, lang, time, note) {
     pendingRow = rowIndex;
-    document.getElementById('m-shelf').textContent = shelf ? `棚 ${shelf}` : '';
-    document.getElementById('m-name').textContent  = name;
-    document.getElementById('m-meta').textContent  =
-      [players && `👥 ${players}`, time && `⏱ ${time}分`, lang && `🌐 ${lang}`].filter(Boolean).join('　');
+    document.getElementById('m-shelf').textContent  = shelf ? `棚 ${shelf}` : '';
+    document.getElementById('m-name').textContent   = name;
+    document.getElementById('m-meta').textContent   = [players&&`👥 ${players}`, time&&`⏱ ${time}分`, lang&&`🌐 ${lang}`].filter(Boolean).join('　');
     const noteEl = document.getElementById('m-note');
-    noteEl.textContent  = note ? `📝 ${note}` : '';
-    noteEl.style.display = note ? 'block' : 'none';
+    noteEl.textContent = note ? `📝 ${note}` : ''; noteEl.style.display = note ? 'block' : 'none';
     document.getElementById('lend-name').value = '';
-    openModal('modal-lend');
-    setTimeout(() => document.getElementById('lend-name').focus(), 100);
+    openModal('modal-lend'); setTimeout(() => document.getElementById('lend-name').focus(), 100);
   }
 
   function submitLend() {
@@ -1631,11 +871,7 @@
     if (!name) { showToast('名前を入力してください', 'error'); return; }
     setLoading(true);
     gasPost('lendGame', { rowIndex: pendingRow, borrowerName: name })
-      .then(r => {
-        setLoading(false);
-        showToast(r.message, r.success ? 'success' : 'error');
-        if (r.success) { closeModal('modal-lend'); loadGames(); }
-      })
+      .then(r => { setLoading(false); showToast(r.message, r.success?'success':'error'); if (r.success) { closeModal('modal-lend'); loadGames(); } })
       .catch(e => { setLoading(false); showToast(e.message, 'error'); });
   }
 
@@ -1650,26 +886,17 @@
   function submitReturn() {
     setLoading(true);
     gasPost('returnGame', { rowIndex: pendingRow })
-      .then(r => {
-        setLoading(false);
-        showToast(r.message, r.success ? 'success' : 'error');
-        if (r.success) { closeModal('modal-return'); loadGames(); }
-      })
+      .then(r => { setLoading(false); showToast(r.message, r.success?'success':'error'); if (r.success) { closeModal('modal-return'); loadGames(); } })
       .catch(e => { setLoading(false); showToast(e.message, 'error'); });
   }
 
   function esc(v) { return String(v||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'"); }
   function openModal(id)  { document.getElementById(id).classList.add('active'); }
   function closeModal(id) { document.getElementById(id).classList.remove('active'); pendingRow = null; }
-  function setLoading(on) {
-    document.querySelectorAll('.btn-primary,.btn-return-confirm').forEach(b => {
-      b.disabled = on; b.style.opacity = on ? 0.6 : 1;
-    });
-  }
+  function setLoading(on) { document.querySelectorAll('.btn-primary,.btn-return-confirm').forEach(b => { b.disabled=on; b.style.opacity=on?0.6:1; }); }
   function showToast(msg, type='info') {
     const t = document.getElementById('toast');
-    t.textContent = msg;
-    t.className   = `toast toast-${type} show`;
+    t.textContent = msg; t.className = `toast toast-${type} show`;
     setTimeout(() => t.className = 'toast', 3000);
   }
 </script>
