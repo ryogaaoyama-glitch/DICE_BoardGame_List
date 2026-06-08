@@ -408,13 +408,11 @@
   const GAS_URL = '/api/proxy';
 
   async function gasGet(action, params = {}) {
-    const url = new URL(GAS_URL);
+    const base = GAS_URL.startsWith('http') ? GAS_URL : window.location.origin + GAS_URL;
+    const url = new URL(base);
     url.searchParams.set('action', action);
     Object.entries(params).forEach(([k, v]) => url.searchParams.set(k, v));
-    const res = await fetch(url.toString(), {
-      redirect: 'follow',
-      mode: 'cors',
-    });
+    const res = await fetch(url.toString());
     return res.json();
   }
 
