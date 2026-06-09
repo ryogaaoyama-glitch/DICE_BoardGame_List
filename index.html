@@ -477,6 +477,8 @@
 
   function logout() {
     lsDel(LS_EMAIL);
+    lsDel(LS_CACHE_KEY);
+    lsDel(LS_CACHE_TIME);
     currentEmail = ''; allGames = []; currentTab = 'all'; tagFilters = {}; playedCache = null;
     document.getElementById('app').style.display          = 'none';
     document.getElementById('login-screen').style.display = 'flex';
@@ -486,17 +488,53 @@
   }
 
   // ===== データ =====
+  const LS_CACHE_KEY    = 'bgm_games_cache';
+  const LS_CACHE_TIME   = 'bgm_games_cache_time';
+  const CACHE_TTL_MS    = 5 * 60 * 1000; // 5分間キャッシュ有効
+
   function loadGames() {
-    document.getElementById('gamesList').innerHTML = '<div class="loading">読み込み中...</div>';
+    // キャッシュがあればすぐ表示
+    const cached    = lsGet(LS_CACHE_KEY);
+    const cachedAt  = lsGet(LS_CACHE_TIME);
+    const cacheAge  = cachedAt ? Date.now() - Number(cachedAt) : Infinity;
+
+    if (cached) {
+      try {
+        allGames = JSON.parse(cached);
+        buildFilters();
+        updateHeaderStats();
+        applyFilter();
+        // キャッシュが新鮮なら再取得しない
+        if (cacheAge < CACHE_TTL_MS) return;
+        // 古い場合はバックグラウンドで更新
+        document.getElementById('gamesList').insertAdjacentHTML('beforeend',
+          '<div id="bg-update-notice" style="grid-column:1/-1;text-align:center;font-size:0.75rem;color:var(--sub);padding:4px">🔄 更新中...</div>');
+      } catch(e) {}
+    } else {
+      document.getElementById('gamesList').innerHTML = '<div class="loading">読み込み中...</div>';
+    }
+
     gasGet('getGames')
       .then(data => {
-        if (data && data.error) { document.getElementById('gamesList').innerHTML = `<div class="error-state">⚠️ ${data.error}</div>`; return; }
+        const notice = document.getElementById('bg-update-notice');
+        if (notice) notice.remove();
+        if (data && data.error) {
+          if (!cached) document.getElementById('gamesList').innerHTML = `<div class="error-state">⚠️ ${data.error}</div>`;
+          return;
+        }
+        // キャッシュ保存
+        lsSet(LS_CACHE_KEY, JSON.stringify(data));
+        lsSet(LS_CACHE_TIME, String(Date.now()));
         allGames = data;
         buildFilters();
         updateHeaderStats();
         applyFilter();
       })
-      .catch(e => { document.getElementById('gamesList').innerHTML = `<div class="error-state">⚠️ ${e.message}</div>`; });
+      .catch(e => {
+        const notice = document.getElementById('bg-update-notice');
+        if (notice) notice.remove();
+        if (!cached) document.getElementById('gamesList').innerHTML = `<div class="error-state">⚠️ ${e.message}</div>`;
+      });
   }
 
   function buildFilters() {
