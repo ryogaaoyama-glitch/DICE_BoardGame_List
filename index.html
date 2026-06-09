@@ -255,6 +255,61 @@
   .toast-error   { border-color: rgba(192,84,74,0.6);   background: rgba(60,28,26,0.95); }
   .toast-info    { border-color: rgba(200,168,75,0.4);  background: rgba(50,40,20,0.95); }
 
+  /* ===== 編集ボタン ===== */
+  .btn-edit {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    color: var(--sub);
+    font-size: 0.8rem;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.18s;
+  }
+  .btn-edit:hover { border-color: var(--accent); background: rgba(212,135,58,0.1); }
+
+  /* ===== 編集タグエリア ===== */
+  .edit-tag-area { display: flex; flex-direction: column; gap: 8px; }
+  .edit-tag-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+  .edit-tag-chip {
+    background: var(--surface3);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    color: var(--sub);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.75rem;
+    padding: 3px 10px;
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .edit-tag-chip:hover  { border-color: var(--accent); color: var(--accent2); }
+  .edit-tag-chip.active { background: rgba(212,135,58,0.18); border-color: var(--accent); color: var(--accent2); font-weight: 700; }
+
+  .edit-tag-input-row {
+    display: flex;
+    gap: 6px;
+  }
+  .edit-tag-input-row input { flex: 1; }
+  .btn-tag-add {
+    background: var(--surface3);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    color: var(--sub);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.82rem;
+    padding: 6px 12px;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all 0.15s;
+  }
+  .btn-tag-add:hover { border-color: var(--accent); color: var(--accent2); }
+
   @media (max-width: 500px) {
     .games-grid { grid-template-columns: 1fr; }
     .stats { display: none; }
@@ -398,6 +453,58 @@
     <div class="modal-footer">
       <button class="btn-outline"        onclick="closeModal('modal-return')">キャンセル</button>
       <button class="btn-return-confirm" onclick="submitReturn()">返却する</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== モーダル：編集 ===== -->
+<div id="modal-edit" class="modal-overlay" onclick="closeModal('modal-edit')">
+  <div class="modal-box" onclick="event.stopPropagation()" style="max-width:480px">
+    <div class="modal-header">
+      <h3>✏️ ゲーム情報を編集</h3>
+      <button class="modal-close" onclick="closeModal('modal-edit')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-game-info">
+        <div class="mgi-shelf" id="edit-shelf-label"></div>
+        <div class="mgi-name"  id="edit-name-label"></div>
+      </div>
+
+      <div>
+        <label>棚番</label>
+        <input type="text" id="edit-shelf" placeholder="例：F-1-2" />
+      </div>
+
+      <div>
+        <label>よみがな</label>
+        <input type="text" id="edit-yomi" placeholder="例：かたん" />
+      </div>
+
+      <div>
+        <label>画像URL</label>
+        <input type="text" id="edit-image" placeholder="https://..." />
+      </div>
+
+      <div>
+        <label>備考</label>
+        <input type="text" id="edit-note" placeholder="メモなど" />
+      </div>
+
+      <div>
+        <label>タグ</label>
+        <div class="edit-tag-area">
+          <div class="edit-tag-chips" id="editTagChips"></div>
+          <div class="edit-tag-input-row">
+            <input type="text" id="edit-tag-input" placeholder="新しいタグを入力..." />
+            <button class="btn-tag-add" onclick="addEditTag()">追加</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <button class="btn-outline" onclick="closeModal('modal-edit')">キャンセル</button>
+      <button class="btn-primary" onclick="submitEdit()">保存</button>
     </div>
   </div>
 </div>
@@ -840,6 +947,7 @@
                 ? `<button class="btn-lend" onclick="openLendModal(${g.rowIndex},'${esc(g.shelf)}','${esc(g.name)}','${esc(g.players)}','${esc(g.lang)}','${esc(g.time)}','${esc(g.note)}')">貸し出す</button>`
                 : `<div class="borrower-info">👤 ${g.borrower}</div><button class="btn-return" onclick="openReturnModal(${g.rowIndex},'${esc(g.shelf)}','${esc(g.name)}','${esc(g.borrower)}')">返却</button>`
               }
+              <button class="btn-edit" onclick="openEditModal(${g.rowIndex},'${esc(g.shelf)}','${esc(g.name)}','${esc(g.yomi)}','${esc(g.image)}','${esc(g.note)}','${esc(g.tags)}')" title="編集">✏️</button>
             </div>
           </div>
         </div>`;
@@ -894,6 +1002,87 @@
     setLoading(true);
     gasPost('returnGame', { rowIndex: pendingRow })
       .then(r => { setLoading(false); showToast(r.message, r.success?'success':'error'); if (r.success) { closeModal('modal-return'); loadGames(); } })
+      .catch(e => { setLoading(false); showToast(e.message, 'error'); });
+  }
+
+  // ===== 編集モーダル =====
+  let editRowIndex   = null;
+  let editTagSet     = new Set();
+
+  function openEditModal(rowIndex, shelf, name, yomi, image, note, tags) {
+    editRowIndex = rowIndex;
+    editTagSet   = new Set(tags ? tags.split(',').map(t => t.trim()).filter(Boolean) : []);
+
+    document.getElementById('edit-shelf-label').textContent = shelf ? `棚 ${shelf}` : '';
+    document.getElementById('edit-name-label').textContent  = name;
+    document.getElementById('edit-shelf').value = shelf || '';
+    document.getElementById('edit-yomi').value  = yomi  || '';
+    document.getElementById('edit-image').value = image || '';
+    document.getElementById('edit-note').value  = note  || '';
+    document.getElementById('edit-tag-input').value = '';
+
+    renderEditTagChips();
+    openModal('modal-edit');
+  }
+
+  function renderEditTagChips() {
+    // 既存の全タグ一覧を取得
+    const allTags = new Set();
+    allGames.forEach(g => parseTags(g.tags).forEach(t => allTags.add(t)));
+
+    const chips = document.getElementById('editTagChips');
+    const allTagsSorted = [...new Set([...allTags, ...editTagSet])].sort();
+
+    chips.innerHTML = allTagsSorted.map(tag => {
+      const active = editTagSet.has(tag);
+      return `<button class="edit-tag-chip ${active ? 'active' : ''}" onclick="toggleEditTag('${tag.replace(/'/g, "\'")}')">${tag}${active ? ' ✕' : ' +'}</button>`;
+    }).join('');
+  }
+
+  function toggleEditTag(tag) {
+    if (editTagSet.has(tag)) { editTagSet.delete(tag); }
+    else                     { editTagSet.add(tag); }
+    renderEditTagChips();
+  }
+
+  function addEditTag() {
+    const input = document.getElementById('edit-tag-input');
+    const val   = input.value.trim();
+    if (!val) return;
+    editTagSet.add(val);
+    input.value = '';
+    renderEditTagChips();
+  }
+
+  // Enterキーでタグ追加
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('edit-tag-input').addEventListener('keydown', e => {
+      if (e.key === 'Enter') addEditTag();
+    });
+  });
+
+  function submitEdit() {
+    setLoading(true);
+    const params = {
+      rowIndex: editRowIndex,
+      shelf:    document.getElementById('edit-shelf').value.trim(),
+      yomi:     document.getElementById('edit-yomi').value.trim(),
+      image:    document.getElementById('edit-image').value.trim(),
+      note:     document.getElementById('edit-note').value.trim(),
+      tags:     [...editTagSet].join(','),
+    };
+    gasPost('updateGame', params)
+      .then(r => {
+        setLoading(false);
+        showToast(r.message, r.success ? 'success' : 'error');
+        if (r.success) {
+          closeModal('modal-edit');
+          // キャッシュを無効化して再読み込み
+          lsDel(LS_CACHE_KEY);
+          lsDel(LS_CACHE_TIME);
+          loadGames();
+        }
+      })
       .catch(e => { setLoading(false); showToast(e.message, 'error'); });
   }
 
