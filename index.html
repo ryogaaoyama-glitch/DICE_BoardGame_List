@@ -440,7 +440,7 @@
 
   function loadPlayedFromServer() {
     return gasGet('getPlayed', { email: currentEmail })
-      .then(data => { playedCache = new Set(data.played || []); return playedCache; })
+      .then(data => { playedCache = new Set((data.played || []).map(Number)); return playedCache; })
       .catch(() => { playedCache = new Set(); return playedCache; });
   }
 
@@ -792,8 +792,8 @@
     const filtered = allGames.filter(g => {
       if (currentTab === 'available' && g.borrower)          return false;
       if (currentTab === 'lending'   && !g.borrower)         return false;
-      if (currentTab === 'unplayed'  && played.has(g.name))  return false;
-      if (currentTab === 'played'    && !played.has(g.name)) return false;
+      if (currentTab === 'unplayed'  && played.has(g.rowIndex))  return false;
+      if (currentTab === 'played'    && !played.has(g.rowIndex)) return false;
       if (lang   && g.lang !== lang)                         return false;
       if (weight && g.weight !== weight)                     return false;
       if (!canPlayWith(g.players, playerFilter))             return false;
@@ -811,7 +811,7 @@
     if (!games.length) { container.innerHTML = '<div class="empty-state">🎲 該当するゲームがありません</div>'; return; }
     container.innerHTML = games.map(g => {
       const available = !g.borrower;
-      const isPlayed  = played.has(g.name);
+      const isPlayed  = played.has(g.rowIndex);
       const noteHtml  = g.note ? `<div class="game-note">📝 ${g.note}</div>` : '';
       const tagsHtml  = g.tags ? `<div class="game-card-tags">${[...parseTags(g.tags)].map(t => `<span class="game-tag">${t}</span>`).join('')}</div>` : '';
       const imgHtml   = g.image ? `<div class="card-img"><img src="${g.image}" alt="${g.name}" loading="lazy" onerror="this.parentElement.style.display='none'" /></div>` : '';
@@ -834,7 +834,7 @@
           </div>
           ${tagsHtml}${noteHtml}
           <div class="card-footer">
-            <button class="btn-played ${isPlayed?'is-played':''}" onclick="togglePlayed('${esc(g.name)}')" title="${isPlayed?'プレイ済みを取り消す':'プレイ済みにする'}">${isPlayed?'⭐':'☆'}</button>
+            <button class="btn-played ${isPlayed?'is-played':''}" onclick="togglePlayed(${g.rowIndex})" title="${isPlayed?'プレイ済みを取り消す':'プレイ済みにする'}">${isPlayed?'⭐':'☆'}</button>
             <div class="card-footer-right">
               ${available
                 ? `<button class="btn-lend" onclick="openLendModal(${g.rowIndex},'${esc(g.shelf)}','${esc(g.name)}','${esc(g.players)}','${esc(g.lang)}','${esc(g.time)}','${esc(g.note)}')">貸し出す</button>`
@@ -848,17 +848,18 @@
 
   function weightClass(w) { return w==='軽'?'light':w==='中'?'mid':w==='重'?'heavy':'unknown'; }
 
-  function togglePlayed(gameName) {
+  function togglePlayed(rowIndex) {
+    rowIndex = Number(rowIndex);
     const set = getPlayedSet();
-    const wasPlayed = set.has(gameName);
-    wasPlayed ? set.delete(gameName) : set.add(gameName);
+    const wasPlayed = set.has(rowIndex);
+    wasPlayed ? set.delete(rowIndex) : set.add(rowIndex);
     playedCache = set; updateHeaderStats(); applyFilter();
-    gasPost('togglePlayed', { email: currentEmail, gameName })
+    gasPost('togglePlayed', { email: currentEmail, rowIndex })
       .then(r => {
         if (r.success) { showToast(r.played ? '⭐ プレイ済みに記録しました' : 'プレイ済みを取り消しました', r.played?'success':'info'); }
-        else { wasPlayed?set.add(gameName):set.delete(gameName); playedCache=set; updateHeaderStats(); applyFilter(); showToast('保存に失敗しました','error'); }
+        else { wasPlayed?set.add(rowIndex):set.delete(rowIndex); playedCache=set; updateHeaderStats(); applyFilter(); showToast('保存に失敗しました','error'); }
       })
-      .catch(() => { wasPlayed?set.add(gameName):set.delete(gameName); playedCache=set; updateHeaderStats(); applyFilter(); showToast('保存に失敗しました','error'); });
+      .catch(() => { wasPlayed?set.add(rowIndex):set.delete(rowIndex); playedCache=set; updateHeaderStats(); applyFilter(); showToast('保存に失敗しました','error'); });
   }
 
   function openLendModal(rowIndex, shelf, name, players, lang, time, note) {
