@@ -986,7 +986,15 @@
     if (!name) { showToast('名前を入力してください', 'error'); return; }
     setLoading(true);
     gasPost('lendGame', { rowIndex: pendingRow, borrowerName: name })
-      .then(r => { setLoading(false); showToast(r.message, r.success?'success':'error'); if (r.success) { closeModal('modal-lend'); loadGames(); } })
+      .then(r => {
+        setLoading(false);
+        showToast(r.message, r.success?'success':'error');
+        if (r.success) {
+          closeModal('modal-lend');
+          lsDel(LS_CACHE_KEY); lsDel(LS_CACHE_TIME);
+          loadGames();
+        }
+      })
       .catch(e => { setLoading(false); showToast(e.message, 'error'); });
   }
 
@@ -1001,7 +1009,15 @@
   function submitReturn() {
     setLoading(true);
     gasPost('returnGame', { rowIndex: pendingRow })
-      .then(r => { setLoading(false); showToast(r.message, r.success?'success':'error'); if (r.success) { closeModal('modal-return'); loadGames(); } })
+      .then(r => {
+        setLoading(false);
+        showToast(r.message, r.success?'success':'error');
+        if (r.success) {
+          closeModal('modal-return');
+          lsDel(LS_CACHE_KEY); lsDel(LS_CACHE_TIME);
+          loadGames();
+        }
+      })
       .catch(e => { setLoading(false); showToast(e.message, 'error'); });
   }
 
