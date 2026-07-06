@@ -838,8 +838,9 @@
       }
       let va, vb;
       if (currentSort === 'shelf') {
-        const na = parseFloat(a.shelf), nb = parseFloat(b.shelf);
-        va = isNaN(na) ? a.shelf : na; vb = isNaN(nb) ? b.shelf : nb;
+        // 棚番を自然順ソート（A-1-2 → A-1-10 の順になるよう数値部分をゼロ埋め）
+        const shelfKey = s => String(s || '').replace(/(\d+)/g, n => n.padStart(6, '0'));
+        va = shelfKey(a.shelf); vb = shelfKey(b.shelf);
       } else if (currentSort === 'name') {
         va = sortKey(a); vb = sortKey(b);
       }
