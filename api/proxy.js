@@ -1,6 +1,6 @@
 export default async function handler(req, res) {
   const params = new URLSearchParams(req.query).toString();
-  const url = `https://script.google.com/macros/s/AKfycbxthxssVkUWIkWVaurUtAzI7MukRESiYPKaErDC4sEIYW-nnKfIBK-_IvbgSMOYAP_s/exec?${params}`;
+  const url = `https://script.google.com/macros/s/AKfycbxwZPW1RCj3zhnLqwJqNIScCE1mwUjPFlZDKfhtAU1Atq-b7DoScJC6zBR_i0sJzyHQ/exec?${params}`;
   const response = await fetch(url, { redirect: 'follow' });
   const text = await response.text();
   res.setHeader('Access-Control-Allow-Origin', '*');
