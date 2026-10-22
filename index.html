@@ -327,9 +327,10 @@
     font-size: 2rem; line-height: 1;
     border: none; cursor: pointer;
     box-shadow: 0 4px 18px rgba(0,0,0,0.45);
-    display: flex; align-items: center; justify-content: center;
+    display: none; align-items: center; justify-content: center;
     transition: transform 0.15s, background 0.15s;
   }
+  .fab-add.visible { display: flex; }
   .fab-add:hover { transform: scale(1.08); background: var(--accent2); }
 </style>
 </head>
@@ -645,6 +646,7 @@
   function startApp(email) {
     currentEmail = email;
     document.getElementById('login-screen').style.display = 'none';
+    document.querySelector('.fab-add').classList.add('visible');
     document.getElementById('app').style.display          = 'block';
     document.getElementById('userAvatar').textContent     = email.charAt(0).toUpperCase();
     document.getElementById('userEmailLabel').textContent = email.length > 22 ? email.substring(0, 20) + '…' : email;
@@ -658,6 +660,7 @@
     lsDel(LS_CACHE_TIME);
     currentEmail = ''; allGames = []; currentTab = 'all'; tagFilters = {}; playedCache = null;
     document.getElementById('app').style.display          = 'none';
+    document.querySelector('.fab-add').classList.remove('visible');
     document.getElementById('login-screen').style.display = 'flex';
     document.getElementById('login-email').value          = '';
     document.getElementById('login-note').textContent     = '';
@@ -1237,8 +1240,10 @@
       .catch(e => { setLoading(false); showToast(e.message, 'error'); });
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('add-tag-input').addEventListener('keydown', e => {
+  // add-tag-input Enter キー
+  window.addEventListener('load', () => {
+    const addTagInput = document.getElementById('add-tag-input');
+    if (addTagInput) addTagInput.addEventListener('keydown', e => {
       if (e.key === 'Enter') addNewGameTag();
     });
   });
