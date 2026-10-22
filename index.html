@@ -659,7 +659,8 @@
   function updateHeaderStats() {
     const total   = allGames.length;
     const lending = allGames.filter(g => g.borrower).length;
-    const played  = getPlayedSet().size;
+    const playedSet = getPlayedSet();
+    const played  = allGames.filter(g => playedSet.has(g.rowIndex)).length;
     document.getElementById('headerStats').innerHTML =
       `<span class="stat-item avail">在庫 ${total - lending}</span><span class="stat-sep">/</span>` +
       `<span class="stat-item lend">貸出中 ${lending}</span><span class="stat-sep">/</span>` +
