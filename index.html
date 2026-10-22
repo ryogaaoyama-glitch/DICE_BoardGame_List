@@ -1119,10 +1119,6 @@
   }
 
   function renderEditTagChips() {
-    // 既存の全タグ一覧を取得
-    const allTags = new Set();
-    allGames.forEach(g => parseTags(g.tags).forEach(t => allTags.add(t)));
-
     const chips = document.getElementById('editTagChips');
     const allTagsSorted = [...new Set([...allTags, ...editTagSet])].sort();
 
