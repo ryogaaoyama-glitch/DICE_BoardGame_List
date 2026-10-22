@@ -610,7 +610,7 @@
 
     if (cached) {
       try {
-        allGames = JSON.parse(cached);
+        allGames = JSON.parse(cached).filter(g => !String(g.shelf).toUpperCase().startsWith("T"));
         buildFilters();
         updateHeaderStats();
         applyFilter();
@@ -635,7 +635,7 @@
         // キャッシュ保存
         lsSet(LS_CACHE_KEY, JSON.stringify(data));
         lsSet(LS_CACHE_TIME, String(Date.now()));
-        allGames = data;
+        allGames = data.filter(g => !String(g.shelf).toUpperCase().startsWith("T"));
         buildFilters();
         updateHeaderStats();
         applyFilter();
