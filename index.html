@@ -493,6 +493,37 @@
         <label>棚番</label>
         <input type="text" id="add-shelf" placeholder="例：F-1-2" />
       </div>
+      <div style="display:flex;gap:10px">
+        <div style="flex:1">
+          <label>プレイ人数</label>
+          <input type="text" id="add-players" placeholder="例：2-4" />
+        </div>
+        <div style="flex:1">
+          <label>プレイ時間（分）</label>
+          <input type="text" id="add-time" placeholder="例：30" />
+        </div>
+      </div>
+      <div style="display:flex;gap:10px">
+        <div style="flex:1">
+          <label>重さ</label>
+          <select id="add-weight" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'Noto Sans JP',sans-serif;font-size:0.95rem;padding:10px 13px;outline:none">
+            <option value="">未選択</option>
+            <option value="軽">軽</option>
+            <option value="中">中</option>
+            <option value="重">重</option>
+          </select>
+        </div>
+        <div style="flex:1">
+          <label>言語</label>
+          <select id="add-lang" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'Noto Sans JP',sans-serif;font-size:0.95rem;padding:10px 13px;outline:none">
+            <option value="">未選択</option>
+            <option value="日本語">日本語</option>
+            <option value="English">English</option>
+            <option value="言語依存なし">言語依存なし</option>
+            <option value="言語依存系英語">言語依存系英語</option>
+          </select>
+        </div>
+      </div>
       <div>
         <label>よみがな</label>
         <input type="text" id="add-yomi" placeholder="例：かたん" />
@@ -1182,10 +1213,11 @@
 
   function openAddModal() {
     addTagSet = new Set();
-    ['add-name','add-shelf','add-yomi','add-image','add-note'].forEach(id => {
+    ['add-name','add-shelf','add-players','add-time','add-yomi','add-image','add-note'].forEach(id => {
       const el = document.getElementById(id);
       if (el) el.value = '';
     });
+    ['add-weight','add-lang'].forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
     renderAddTagChips();
     openModal('modal-add');
   }
@@ -1217,12 +1249,16 @@
     if (!name) { showToast('ボドゲ名を入力してください', 'error'); return; }
     setLoading(true);
     const params = {
-      name:  name,
-      shelf: document.getElementById('add-shelf').value.trim(),
-      yomi:  document.getElementById('add-yomi').value.trim(),
-      image: document.getElementById('add-image').value.trim(),
-      note:  document.getElementById('add-note').value.trim(),
-      tags:  [...addTagSet].join(','),
+      name:    name,
+      shelf:   document.getElementById('add-shelf').value.trim(),
+      players: document.getElementById('add-players').value.trim(),
+      time:    document.getElementById('add-time').value.trim(),
+      weight:  document.getElementById('add-weight').value,
+      lang:    document.getElementById('add-lang').value,
+      yomi:    document.getElementById('add-yomi').value.trim(),
+      image:   document.getElementById('add-image').value.trim(),
+      note:    document.getElementById('add-note').value.trim(),
+      tags:    [...addTagSet].join(','),
     };
     gasPost('addGame', params)
       .then(r => {
