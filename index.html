@@ -318,6 +318,19 @@
     .stat-sep { display: none; }
     .login-box { padding: 36px 24px; }
   }
+
+  /* ===== FAB ===== */
+  .fab-add {
+    position: fixed; bottom: 24px; right: 24px; z-index: 100;
+    width: 56px; height: 56px; border-radius: 50%;
+    background: var(--accent); color: #fff;
+    font-size: 2rem; line-height: 1;
+    border: none; cursor: pointer;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.45);
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.15s, background 0.15s;
+  }
+  .fab-add:hover { transform: scale(1.08); background: var(--accent2); }
 </style>
 </head>
 <body>
@@ -460,6 +473,55 @@
   </div>
 </div>
 
+<!-- ===== FAB：ボドゲ追加ボタン ===== -->
+<button class="fab-add" onclick="openAddModal()" title="ボドゲを追加">＋</button>
+
+<!-- ===== モーダル：ボドゲ追加 ===== -->
+<div id="modal-add" class="modal-overlay" onclick="closeModal('modal-add')">
+  <div class="modal-box" onclick="event.stopPropagation()" style="max-width:480px">
+    <div class="modal-header">
+      <h3>➕ ボドゲを追加</h3>
+      <button class="modal-close" onclick="closeModal('modal-add')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div>
+        <label>ボドゲ名 <span style="color:var(--accent2)">*</span></label>
+        <input type="text" id="add-name" placeholder="ゲーム名（必須）" />
+      </div>
+      <div>
+        <label>棚番</label>
+        <input type="text" id="add-shelf" placeholder="例：F-1-2" />
+      </div>
+      <div>
+        <label>よみがな</label>
+        <input type="text" id="add-yomi" placeholder="例：かたん" />
+      </div>
+      <div>
+        <label>画像URL</label>
+        <input type="text" id="add-image" placeholder="https://..." />
+      </div>
+      <div>
+        <label>備考</label>
+        <input type="text" id="add-note" placeholder="メモなど" />
+      </div>
+      <div>
+        <label>タグ</label>
+        <div class="edit-tag-area">
+          <div class="edit-tag-chips" id="addTagChips"></div>
+          <div class="edit-tag-input-row">
+            <input type="text" id="add-tag-input" placeholder="新しいタグを入力..." />
+            <button class="btn-tag-add" onclick="addNewGameTag()">追加</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-outline" onclick="closeModal('modal-add')">キャンセル</button>
+      <button class="btn-primary" onclick="submitAdd()">追加</button>
+    </div>
+  </div>
+</div>
+
 <!-- ===== モーダル：編集 ===== -->
 <div id="modal-edit" class="modal-overlay" onclick="closeModal('modal-edit')">
   <div class="modal-box" onclick="event.stopPropagation()" style="max-width:480px">
@@ -471,6 +533,11 @@
       <div class="modal-game-info">
         <div class="mgi-shelf" id="edit-shelf-label"></div>
         <div class="mgi-name"  id="edit-name-label"></div>
+      </div>
+
+      <div>
+        <label>ボドゲ名</label>
+        <input type="text" id="edit-name" placeholder="ゲーム名" />
       </div>
 
       <div>
@@ -1036,6 +1103,7 @@
 
     document.getElementById('edit-shelf-label').textContent = shelf ? `棚 ${shelf}` : '';
     document.getElementById('edit-name-label').textContent  = name;
+    document.getElementById('edit-name').value  = name  || '';
     document.getElementById('edit-shelf').value = shelf || '';
     document.getElementById('edit-yomi').value  = yomi  || '';
     document.getElementById('edit-image').value = image || '';
@@ -1086,6 +1154,7 @@
     setLoading(true);
     const params = {
       rowIndex: editRowIndex,
+      name:     document.getElementById('edit-name').value.trim(),
       shelf:    document.getElementById('edit-shelf').value.trim(),
       yomi:     document.getElementById('edit-yomi').value.trim(),
       image:    document.getElementById('edit-image').value.trim(),
@@ -1106,6 +1175,73 @@
       })
       .catch(e => { setLoading(false); showToast(e.message, 'error'); });
   }
+
+
+  // ===== 追加モーダル =====
+  let addTagSet = new Set();
+
+  function openAddModal() {
+    addTagSet = new Set();
+    ['add-name','add-shelf','add-yomi','add-image','add-note'].forEach(id => {
+      document.getElementById(id).value = '';
+    });
+    renderAddTagChips();
+    openModal('modal-add');
+  }
+
+  function renderAddTagChips() {
+    const allTagsSorted = [...new Set([...allTags, ...addTagSet])].sort();
+    document.getElementById('addTagChips').innerHTML = allTagsSorted.map(tag => {
+      const active = addTagSet.has(tag);
+      return `<span class="edit-tag-chip ${active?'active':''}" onclick="toggleAddTag('${tag}')">${tag}</span>`;
+    }).join('');
+  }
+
+  function toggleAddTag(tag) {
+    if (addTagSet.has(tag)) { addTagSet.delete(tag); }
+    else                    { addTagSet.add(tag); }
+    renderAddTagChips();
+  }
+
+  function addNewGameTag() {
+    const val = document.getElementById('add-tag-input').value.trim();
+    if (!val) return;
+    addTagSet.add(val);
+    document.getElementById('add-tag-input').value = '';
+    renderAddTagChips();
+  }
+
+  function submitAdd() {
+    const name = document.getElementById('add-name').value.trim();
+    if (!name) { showToast('ボドゲ名を入力してください', 'error'); return; }
+    setLoading(true);
+    const params = {
+      name:  name,
+      shelf: document.getElementById('add-shelf').value.trim(),
+      yomi:  document.getElementById('add-yomi').value.trim(),
+      image: document.getElementById('add-image').value.trim(),
+      note:  document.getElementById('add-note').value.trim(),
+      tags:  [...addTagSet].join(','),
+    };
+    gasPost('addGame', params)
+      .then(r => {
+        setLoading(false);
+        showToast(r.message, r.success ? 'success' : 'error');
+        if (r.success) {
+          closeModal('modal-add');
+          lsDel(LS_CACHE_KEY);
+          lsDel(LS_CACHE_TIME);
+          loadGames();
+        }
+      })
+      .catch(e => { setLoading(false); showToast(e.message, 'error'); });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('add-tag-input').addEventListener('keydown', e => {
+      if (e.key === 'Enter') addNewGameTag();
+    });
+  });
 
   function esc(v) { return String(v||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'"); }
   function openModal(id)  { document.getElementById(id).classList.add('active'); }
