@@ -600,6 +600,7 @@
 
   // ===== 状態 =====
   let allGames     = [];
+  let allTags      = new Set();
   let currentTab   = 'all';
   let pendingRow   = null;
   let currentEmail = '';
@@ -751,7 +752,7 @@
   }
 
   function buildTagFilter() {
-    const allTags = new Set();
+    allTags = new Set();
     allGames.forEach(g => parseTags(g.tags).forEach(t => allTags.add(t)));
     const bar = document.getElementById('tagFilterBar');
     if (allTags.size === 0) { bar.style.display = 'none'; return; }
@@ -1184,16 +1185,12 @@
   let addTagSet = new Set();
 
   function openAddModal() {
-    console.log('[DEBUG] openAddModal called');
     addTagSet = new Set();
     ['add-name','add-shelf','add-yomi','add-image','add-note'].forEach(id => {
       const el = document.getElementById(id);
-      console.log('[DEBUG] field', id, el);
       if (el) el.value = '';
     });
-    try { renderAddTagChips(); } catch(e) { console.warn('renderAddTagChips:', e); }
-    const modalEl = document.getElementById('modal-add');
-    console.log('[DEBUG] modal-add element:', modalEl);
+    renderAddTagChips();
     openModal('modal-add');
   }
 
