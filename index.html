@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🎲 DICEボドゲリスト</title>
+  <title>DICEボドゲリスト</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap');
 
@@ -281,9 +281,9 @@
   .edit-tag-area { display: flex; flex-direction: column; gap: 8px; }
   .edit-tag-chips { display: flex; flex-wrap: wrap; gap: 5px; }
   .edit-tag-chip {
-    background: var(--surface3);
+    background: var(--surface2);
     border: 1px solid var(--border);
-    border-radius: 20px;
+    border-radius: 4px;
     color: var(--sub);
     font-family: 'Noto Sans JP', sans-serif;
     font-size: 0.75rem;
@@ -292,8 +292,8 @@
     transition: all 0.15s;
     white-space: nowrap;
   }
-  .edit-tag-chip:hover  { border-color: var(--accent); color: var(--accent2); }
-  .edit-tag-chip.active { background: rgba(212,135,58,0.18); border-color: var(--accent); color: var(--accent2); font-weight: 700; }
+  .edit-tag-chip:hover  { border-color: var(--accent); color: var(--accent); }
+  .edit-tag-chip.active { background: var(--accent-bg); border-color: var(--accent); color: var(--accent); font-weight: 700; }
 
   .edit-tag-input-row {
     display: flex;
@@ -312,7 +312,7 @@
     flex-shrink: 0;
     transition: all 0.15s;
   }
-  .btn-tag-add:hover { border-color: var(--accent); color: var(--accent2); }
+  .btn-tag-add:hover { border-color: var(--accent); color: var(--accent); }
 
   @media (max-width: 500px) {
     .games-grid { grid-template-columns: 1fr; }
@@ -329,7 +329,7 @@
     background: var(--accent); color: #fff;
     font-size: 2rem; line-height: 1;
     border: none; cursor: pointer;
-    box-shadow: 0 4px 18px rgba(0,0,0,0.45);
+    box-shadow: 0 4px 16px rgba(45,95,166,0.35);
     display: none; align-items: center; justify-content: center;
     transition: transform 0.15s, background 0.15s;
   }
@@ -355,7 +355,7 @@
 <div id="app" class="app-wrapper" style="display:none">
   <header class="header">
     <div class="header-inner">
-      <div class="logo"><span class="logo-text">DICEボドゲリスト</span></div>
+      <div class="logo"><span class="logo-icon">D</span><span class="logo-text">DICEボドゲリスト</span></div>
       <div class="header-right">
         <div class="stats" id="headerStats"></div>
         <div class="user-chip" id="userChip">
@@ -368,15 +368,15 @@
   </header>
 
   <nav class="tab-nav">
-    <button class="tab-btn active" data-tab="all"       onclick="switchTab(this)">🎲 すべて</button>
-    <button class="tab-btn"        data-tab="available" onclick="switchTab(this)">✅ 在庫あり</button>
-    <button class="tab-btn"        data-tab="lending"   onclick="switchTab(this)">📤 貸出中</button>
-    <button class="tab-btn"        data-tab="unplayed"  onclick="switchTab(this)">🆕 未プレイ</button>
-    <button class="tab-btn"        data-tab="played"    onclick="switchTab(this)">⭐ プレイ済み</button>
+    <button class="tab-btn active" data-tab="all"       onclick="switchTab(this)">すべて</button>
+    <button class="tab-btn"        data-tab="available" onclick="switchTab(this)">在庫あり</button>
+    <button class="tab-btn"        data-tab="lending"   onclick="switchTab(this)">貸出中</button>
+    <button class="tab-btn"        data-tab="unplayed"  onclick="switchTab(this)">未プレイ</button>
+    <button class="tab-btn"        data-tab="played"    onclick="switchTab(this)">プレイ済み</button>
   </nav>
 
   <div class="filter-bar">
-    <input type="text" id="searchInput" placeholder="🔍 ゲーム名・棚番で検索..." oninput="applyFilter()" />
+    <input type="text" id="searchInput" placeholder="ゲーム名・棚番で検索..." oninput="applyFilter()" />
     <button class="btn-filter-toggle" id="filterToggleBtn" onclick="toggleFilterPanel()">
       <span id="filterToggleIcon">▼</span> 絞り込み
       <span class="filter-active-badge" id="filterActiveBadge" style="display:none"></span>
@@ -417,7 +417,7 @@
         <button class="tag-filter-reset" onclick="resetTagFilter()">リセット</button>
       </div>
       <div class="filter-row filter-row-reset">
-        <button class="btn-filter-reset-all" onclick="resetAllFilters()">🔄 すべてリセット</button>
+        <button class="btn-filter-reset-all" onclick="resetAllFilters()">すべてリセット</button>
       </div>
     </div>
   </div>
@@ -445,7 +445,7 @@
 
 <div id="modal-lend" class="modal-overlay" onclick="closeModal('modal-lend')">
   <div class="modal-box" onclick="event.stopPropagation()">
-    <div class="modal-header"><h3>📤 貸し出し</h3><button class="modal-close" onclick="closeModal('modal-lend')">✕</button></div>
+    <div class="modal-header"><h3>貸し出し</h3><button class="modal-close" onclick="closeModal('modal-lend')">✕</button></div>
     <div class="modal-body">
       <div class="modal-game-info">
         <div class="mgi-shelf" id="m-shelf"></div>
@@ -465,7 +465,7 @@
 
 <div id="modal-return" class="modal-overlay" onclick="closeModal('modal-return')">
   <div class="modal-box" onclick="event.stopPropagation()">
-    <div class="modal-header"><h3>✅ 返却</h3><button class="modal-close" onclick="closeModal('modal-return')">✕</button></div>
+    <div class="modal-header"><h3>返却</h3><button class="modal-close" onclick="closeModal('modal-return')">✕</button></div>
     <div class="modal-body">
       <div class="modal-game-info">
         <div class="mgi-shelf"    id="mr-shelf"></div>
@@ -484,7 +484,7 @@
 <div id="modal-add" class="modal-overlay" onclick="closeModal('modal-add')">
   <div class="modal-box" onclick="event.stopPropagation()" style="max-width:480px">
     <div class="modal-header">
-      <h3>➕ ボドゲを追加</h3>
+      <h3>ボドゲを追加</h3>
       <button class="modal-close" onclick="closeModal('modal-add')">✕</button>
     </div>
     <div class="modal-body">
@@ -561,7 +561,7 @@
 <div id="modal-edit" class="modal-overlay" onclick="closeModal('modal-edit')">
   <div class="modal-box" onclick="event.stopPropagation()" style="max-width:480px">
     <div class="modal-header">
-      <h3>✏️ ゲーム情報を編集</h3>
+      <h3>ゲーム情報を編集</h3>
       <button class="modal-close" onclick="closeModal('modal-edit')">✕</button>
     </div>
     <div class="modal-body">
@@ -756,7 +756,7 @@
         if (cacheAge < CACHE_TTL_MS) return;
         // 古い場合はバックグラウンドで更新
         document.getElementById('gamesList').insertAdjacentHTML('beforeend',
-          '<div id="bg-update-notice" style="grid-column:1/-1;text-align:center;font-size:0.75rem;color:var(--sub);padding:4px">🔄 更新中...</div>');
+          '<div id="bg-update-notice" style="grid-column:1/-1;text-align:center;font-size:0.75rem;color:var(--sub);padding:4px">更新中...</div>');
       } catch(e) {}
     } else {
       document.getElementById('gamesList').innerHTML = '<div class="loading">読み込み中...</div>';
@@ -767,7 +767,7 @@
         const notice = document.getElementById('bg-update-notice');
         if (notice) notice.remove();
         if (data && data.error) {
-          if (!cached) document.getElementById('gamesList').innerHTML = `<div class="error-state">⚠️ ${data.error}</div>`;
+          if (!cached) document.getElementById('gamesList').innerHTML = `<div class="error-state">${data.error}</div>`;
           return;
         }
         // キャッシュ保存
@@ -781,7 +781,7 @@
       .catch(e => {
         const notice = document.getElementById('bg-update-notice');
         if (notice) notice.remove();
-        if (!cached) document.getElementById('gamesList').innerHTML = `<div class="error-state">⚠️ ${e.message}</div>`;
+        if (!cached) document.getElementById('gamesList').innerHTML = `<div class="error-state">${e.message}</div>`;
       });
   }
 
@@ -802,7 +802,7 @@
     document.getElementById('headerStats').innerHTML =
       `<span class="stat-item avail">在庫 ${total - lending}</span><span class="stat-sep">/</span>` +
       `<span class="stat-item lend">貸出中 ${lending}</span><span class="stat-sep">/</span>` +
-      `<span class="stat-item played-stat">⭐ ${played}</span>`;
+      `<span class="stat-item played-stat">プレイ済み ${played}</span>`;
   }
 
   function switchTab(btn) {
@@ -843,7 +843,7 @@
     document.querySelectorAll('.tag-chip').forEach(btn => {
       const state = tagFilters[btn.dataset.tag];
       btn.className   = 'tag-chip' + (state ? ' tag-' + state : '');
-      btn.textContent = (state === 'include' ? '✅ ' : state === 'exclude' ? '❌ ' : '') + btn.dataset.tag;
+      btn.textContent = btn.dataset.tag;
     });
   }
 
@@ -1058,11 +1058,11 @@
   // ===== レンダリング =====
   function renderGames(games, played) {
     const container = document.getElementById('gamesList');
-    if (!games.length) { container.innerHTML = '<div class="empty-state">🎲 該当するゲームがありません</div>'; return; }
+    if (!games.length) { container.innerHTML = '<div class="empty-state">該当するゲームがありません</div>'; return; }
     container.innerHTML = games.map(g => {
       const available = !g.borrower;
       const isPlayed  = played.has(g.rowIndex);
-      const noteHtml  = g.note ? `<div class="game-note">📝 ${g.note}</div>` : '';
+      const noteHtml  = g.note ? `<div class="game-note">${g.note}</div>` : '';
       const tagsHtml  = g.tags ? `<div class="game-card-tags">${[...parseTags(g.tags)].map(t => `<span class="game-tag">${t}</span>`).join('')}</div>` : '';
       const imgHtml   = g.image ? `<div class="card-img"><img src="${g.image}" alt="${g.name}" loading="lazy" onerror="this.parentElement.style.display='none'" /></div>` : '';
       return `
@@ -1071,26 +1071,26 @@
           <div class="card-top">
             ${g.shelf ? `<span class="shelf-badge">棚 ${g.shelf}</span>` : '<span></span>'}
             <div class="card-top-right">
-              ${isPlayed ? '<span class="played-badge">⭐ プレイ済み</span>' : ''}
-              <span class="status-badge ${available?'avail':'lend'}">${available?'✓ 在庫あり':'✗ 貸出中'}</span>
+              ${isPlayed ? '<span class="played-badge">プレイ済み</span>' : ''}
+              <span class="status-badge ${available?'avail':'lend'}">${available?'在庫あり':'貸出中'}</span>
             </div>
           </div>
           <h3 class="game-name">${g.name}</h3>
           <div class="game-tags">
-            ${g.players ? `<span class="tag">👥 ${g.players}</span>` : ''}
-            ${g.weight  ? `<span class="tag tag-weight-${weightClass(g.weight)}">⚖️ ${g.weight}</span>` : ''}
-            ${g.time    ? `<span class="tag">⏱ ${g.time}分</span>` : ''}
-            ${g.lang    ? `<span class="tag">🌐 ${g.lang}</span>` : ''}
+            ${g.players ? `<span class="tag">${g.players}人</span>` : ''}
+            ${g.weight  ? `<span class="tag tag-weight-${weightClass(g.weight)}">${g.weight}</span>` : ''}
+            ${g.time    ? `<span class="tag">${g.time}分</span>` : ''}
+            ${g.lang    ? `<span class="tag">${g.lang}</span>` : ''}
           </div>
           ${tagsHtml}${noteHtml}
           <div class="card-footer">
-            <button class="btn-played ${isPlayed?'is-played':''}" onclick="togglePlayed(${g.rowIndex})" title="${isPlayed?'プレイ済みを取り消す':'プレイ済みにする'}">${isPlayed?'⭐':'☆'}</button>
+            <button class="btn-played ${isPlayed?'is-played':''}" onclick="togglePlayed(${g.rowIndex})" title="${isPlayed?'プレイ済みを取り消す':'プレイ済みにする'}">${isPlayed?'済':'未'}</button>
             <div class="card-footer-right">
               ${available
                 ? `<button class="btn-lend" onclick="openLendModal(${g.rowIndex},'${esc(g.shelf)}','${esc(g.name)}','${esc(g.players)}','${esc(g.lang)}','${esc(g.time)}','${esc(g.note)}')">貸し出す</button>`
-                : `<div class="borrower-info">👤 ${g.borrower}</div><button class="btn-return" onclick="openReturnModal(${g.rowIndex},'${esc(g.shelf)}','${esc(g.name)}','${esc(g.borrower)}')">返却</button>`
+                : `<div class="borrower-info">${g.borrower}</div><button class="btn-return" onclick="openReturnModal(${g.rowIndex},'${esc(g.shelf)}','${esc(g.name)}','${esc(g.borrower)}')">返却</button>`
               }
-              <button class="btn-edit" onclick="openEditModal(${g.rowIndex},'${esc(g.shelf)}','${esc(g.name)}','${esc(g.yomi)}','${esc(g.image)}','${esc(g.note)}','${esc(g.tags)}','${esc(g.players)}','${esc(g.time)}','${esc(g.weight)}','${esc(g.lang)}')" title="編集">✏️</button>
+              <button class="btn-edit" onclick="openEditModal(${g.rowIndex},'${esc(g.shelf)}','${esc(g.name)}','${esc(g.yomi)}','${esc(g.image)}','${esc(g.note)}','${esc(g.tags)}','${esc(g.players)}','${esc(g.time)}','${esc(g.weight)}','${esc(g.lang)}')" title="編集">編</button>
             </div>
           </div>
         </div>`;
@@ -1107,7 +1107,7 @@
     playedCache = set; updateHeaderStats(); applyFilter();
     gasPost('togglePlayed', { email: currentEmail, rowIndex })
       .then(r => {
-        if (r.success) { showToast(r.played ? '⭐ プレイ済みに記録しました' : 'プレイ済みを取り消しました', r.played?'success':'info'); }
+        if (r.success) { showToast(r.played ? 'プレイ済みに記録しました' : 'プレイ済みを取り消しました', r.played?'success':'info'); }
         else { wasPlayed?set.add(rowIndex):set.delete(rowIndex); playedCache=set; updateHeaderStats(); applyFilter(); showToast('保存に失敗しました','error'); }
       })
       .catch(() => { wasPlayed?set.add(rowIndex):set.delete(rowIndex); playedCache=set; updateHeaderStats(); applyFilter(); showToast('保存に失敗しました','error'); });
@@ -1117,9 +1117,9 @@
     pendingRow = rowIndex;
     document.getElementById('m-shelf').textContent  = shelf ? `棚 ${shelf}` : '';
     document.getElementById('m-name').textContent   = name;
-    document.getElementById('m-meta').textContent   = [players&&`👥 ${players}`, time&&`⏱ ${time}分`, lang&&`🌐 ${lang}`].filter(Boolean).join('　');
+    document.getElementById('m-meta').textContent   = [players&&`${players}人`, time&&`${time}分`, lang&&`${lang}`].filter(Boolean).join('　');
     const noteEl = document.getElementById('m-note');
-    noteEl.textContent = note ? `📝 ${note}` : ''; noteEl.style.display = note ? 'block' : 'none';
+    noteEl.textContent = note ? note : ''; noteEl.style.display = note ? 'block' : 'none';
     document.getElementById('lend-name').value = '';
     openModal('modal-lend'); setTimeout(() => document.getElementById('lend-name').focus(), 100);
   }
