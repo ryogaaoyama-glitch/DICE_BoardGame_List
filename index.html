@@ -577,6 +577,39 @@
         <input type="text" id="edit-shelf" placeholder="例：F-1-2" />
       </div>
 
+      <div style="display:flex;gap:10px">
+        <div style="flex:1">
+          <label>プレイ人数</label>
+          <input type="text" id="edit-players" placeholder="例：2~4" />
+        </div>
+        <div style="flex:1">
+          <label>プレイ時間（分）</label>
+          <input type="text" id="edit-time" placeholder="例：30-90" />
+        </div>
+      </div>
+
+      <div style="display:flex;gap:10px">
+        <div style="flex:1">
+          <label>重さ</label>
+          <select id="edit-weight" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'Noto Sans JP',sans-serif;font-size:0.95rem;padding:10px 13px;outline:none">
+            <option value="">未選択</option>
+            <option value="軽">軽</option>
+            <option value="中">中</option>
+            <option value="重">重</option>
+          </select>
+        </div>
+        <div style="flex:1">
+          <label>言語</label>
+          <select id="edit-lang" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'Noto Sans JP',sans-serif;font-size:0.95rem;padding:10px 13px;outline:none">
+            <option value="">未選択</option>
+            <option value="日本語">日本語</option>
+            <option value="English">English</option>
+            <option value="言語依存なし">言語依存なし</option>
+            <option value="言語依存系英語">言語依存系英語</option>
+          </select>
+        </div>
+      </div>
+
       <div>
         <label>よみがな</label>
         <input type="text" id="edit-yomi" placeholder="例：かたん" />
@@ -1054,7 +1087,7 @@
                 ? `<button class="btn-lend" onclick="openLendModal(${g.rowIndex},'${esc(g.shelf)}','${esc(g.name)}','${esc(g.players)}','${esc(g.lang)}','${esc(g.time)}','${esc(g.note)}')">貸し出す</button>`
                 : `<div class="borrower-info">👤 ${g.borrower}</div><button class="btn-return" onclick="openReturnModal(${g.rowIndex},'${esc(g.shelf)}','${esc(g.name)}','${esc(g.borrower)}')">返却</button>`
               }
-              <button class="btn-edit" onclick="openEditModal(${g.rowIndex},'${esc(g.shelf)}','${esc(g.name)}','${esc(g.yomi)}','${esc(g.image)}','${esc(g.note)}','${esc(g.tags)}')" title="編集">✏️</button>
+              <button class="btn-edit" onclick="openEditModal(${g.rowIndex},'${esc(g.shelf)}','${esc(g.name)}','${esc(g.yomi)}','${esc(g.image)}','${esc(g.note)}','${esc(g.tags)}','${esc(g.players)}','${esc(g.time)}','${esc(g.weight)}','${esc(g.lang)}')" title="編集">✏️</button>
             </div>
           </div>
         </div>`;
@@ -1132,17 +1165,21 @@
   let editRowIndex   = null;
   let editTagSet     = new Set();
 
-  function openEditModal(rowIndex, shelf, name, yomi, image, note, tags) {
+  function openEditModal(rowIndex, shelf, name, yomi, image, note, tags, players, time, weight, lang) {
     editRowIndex = rowIndex;
     editTagSet   = new Set(tags ? tags.split(',').map(t => t.trim()).filter(Boolean) : []);
 
     document.getElementById('edit-shelf-label').textContent = shelf ? `棚 ${shelf}` : '';
     document.getElementById('edit-name-label').textContent  = name;
-    document.getElementById('edit-name').value  = name  || '';
-    document.getElementById('edit-shelf').value = shelf || '';
-    document.getElementById('edit-yomi').value  = yomi  || '';
-    document.getElementById('edit-image').value = image || '';
-    document.getElementById('edit-note').value  = note  || '';
+    document.getElementById('edit-name').value    = name    || '';
+    document.getElementById('edit-shelf').value   = shelf   || '';
+    document.getElementById('edit-players').value = players || '';
+    document.getElementById('edit-time').value    = time    || '';
+    document.getElementById('edit-weight').value  = weight  || '';
+    document.getElementById('edit-lang').value    = lang    || '';
+    document.getElementById('edit-yomi').value    = yomi    || '';
+    document.getElementById('edit-image').value   = image   || '';
+    document.getElementById('edit-note').value    = note    || '';
     document.getElementById('edit-tag-input').value = '';
 
     renderEditTagChips();
@@ -1187,6 +1224,10 @@
       rowIndex: editRowIndex,
       name:     document.getElementById('edit-name').value.trim(),
       shelf:    document.getElementById('edit-shelf').value.trim(),
+      players:  document.getElementById('edit-players').value.trim(),
+      time:     document.getElementById('edit-time').value.trim(),
+      weight:   document.getElementById('edit-weight').value,
+      lang:     document.getElementById('edit-lang').value,
       yomi:     document.getElementById('edit-yomi').value.trim(),
       image:    document.getElementById('edit-image').value.trim(),
       note:     document.getElementById('edit-note').value.trim(),
