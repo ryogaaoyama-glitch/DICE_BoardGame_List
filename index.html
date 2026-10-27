@@ -1084,13 +1084,13 @@
           </div>
           ${tagsHtml}${noteHtml}
           <div class="card-footer">
-            <button class="btn-played ${isPlayed?'is-played':''}" onclick="togglePlayed(${g.rowIndex})" title="${isPlayed?'プレイ済みを取り消す':'プレイ済みにする'}">${isPlayed?'済':'未'}</button>
+            <button class="btn-played ${isPlayed?'is-played':''}" onclick="togglePlayed(${g.rowIndex})" title="${isPlayed?'プレイ済みを取り消す':'プレイ済みにする'}">${isPlayed?'⭐':'☆'}</button>
             <div class="card-footer-right">
               ${available
                 ? `<button class="btn-lend" onclick="openLendModal(${g.rowIndex},'${esc(g.shelf)}','${esc(g.name)}','${esc(g.players)}','${esc(g.lang)}','${esc(g.time)}','${esc(g.note)}')">貸し出す</button>`
                 : `<div class="borrower-info">${g.borrower}</div><button class="btn-return" onclick="openReturnModal(${g.rowIndex},'${esc(g.shelf)}','${esc(g.name)}','${esc(g.borrower)}')">返却</button>`
               }
-              <button class="btn-edit" onclick="openEditModal(${g.rowIndex},'${esc(g.shelf)}','${esc(g.name)}','${esc(g.yomi)}','${esc(g.image)}','${esc(g.note)}','${esc(g.tags)}','${esc(g.players)}','${esc(g.time)}','${esc(g.weight)}','${esc(g.lang)}')" title="編集">編</button>
+              <button class="btn-edit" onclick="openEditModal(${g.rowIndex},'${esc(g.shelf)}','${esc(g.name)}','${esc(g.yomi)}','${esc(g.image)}','${esc(g.note)}','${esc(g.tags)}','${esc(g.players)}','${esc(g.time)}','${esc(g.weight)}','${esc(g.lang)}')" title="編集">✏️</button>
             </div>
           </div>
         </div>`;
