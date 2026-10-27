@@ -165,9 +165,9 @@
   .main-content { max-width: 1100px; margin: 0 auto; padding: 0 16px 32px; }
   .games-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 12px; }
   .game-card { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius); padding: 13px; display: flex; flex-direction: column; gap: 8px; position: relative; overflow: hidden; transition: transform 0.15s, box-shadow 0.15s; }
-  .game-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent2)); transition: background 0.3s; }
-  .game-card.borrowed::before       { background: var(--border); }
-  .game-card.is-played-card::before { background: linear-gradient(90deg, var(--gold), var(--gold2)); }
+  .game-card::before { display: none; }
+
+
   .game-card:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(0,0,0,0.45); }
   .game-card.is-played-card { border-color: rgba(200,168,75,0.3); }
 
@@ -339,7 +339,7 @@
 
 <div id="login-screen" class="login-screen">
   <div class="login-box">
-    <div class="login-logo">♟</div>
+    
     <h1 class="login-title">DICEボドゲリスト</h1>
     <p class="login-desc">メールアドレスを入力すると<br>プレイ記録がサーバーに保存されます</p>
     <div class="login-form">
@@ -353,7 +353,7 @@
 <div id="app" class="app-wrapper" style="display:none">
   <header class="header">
     <div class="header-inner">
-      <div class="logo"><span class="logo-icon">♟</span><span class="logo-text">DICEボドゲリスト</span></div>
+      <div class="logo"><span class="logo-text">DICEボドゲリスト</span></div>
       <div class="header-right">
         <div class="stats" id="headerStats"></div>
         <div class="user-chip" id="userChip">
